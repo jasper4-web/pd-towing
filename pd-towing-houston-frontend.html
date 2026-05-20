@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>PD Towing of Houston — The Private Property Specialists</title>
+<meta name="description" content="Houston's most trusted 24/7 private property towing & parking enforcement. 15+ years. Family-owned. TDLR compliant. Personal Dedication." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" />
+<style>
+/* ============================================================
+   PD TOWING OF HOUSTON — PHASE 1 MOCK
+   Brand: Midnight navy + PD electric blue + skyline-cool cyan
+   ============================================================ */
+:root {
+  --bg: #050a14;
+  --bg-2: #0a1929;
+  --surface: rgba(26,36,51,0.72);
+  --surface-strong: rgba(15,24,40,0.92);
+  --surface-border: rgba(125,211,252,0.14);
+  --pd-blue: #2563eb;
+  --pd-blue-glow: #4a90e2;
+  --cyan-led: #7dd3fc;
+  --text: #f4f6f8;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --gold: #f59e0b;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --font-display: 'Fraunces', 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 1240px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-blue: 0 24px 60px -20px rgba(37,99,235,0.45);
+  --shadow-card: 0 18px 50px -22px rgba(0,0,0,0.6);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+:focus-visible { outline: 2px solid var(--cyan-led); outline-offset: 3px; border-radius: 4px; }
+
+/* ============ SKYLINE FADE LOOP ============ */
+.skyline-bg {
+  position: fixed; inset: 0; z-index: -2;
+  background: var(--bg);
+}
+.skyline-bg::before,
+.skyline-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  animation: skylineFade 60s infinite;
+  opacity: 0;
+}
+.skyline-1 { background-image: url('https://images.pexels.com/photos/17995530/pexels-photo-17995530.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 0s; }
+.skyline-2 { background-image: url('https://images.pexels.com/photos/18441153/pexels-photo-18441153.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 12s; }
+.skyline-3 { background-image: url('https://images.pexels.com/photos/18462226/pexels-photo-18462226.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 24s; }
+.skyline-4 { background-image: url('https://images.pexels.com/photos/10769615/pexels-photo-10769615.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 36s; }
+.skyline-5 { background-image: url('https://images.pexels.com/photos/7142456/pexels-photo-7142456.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 48s; }
+.skyline-layer {
+  position: fixed; inset: 0; z-index: -2;
+  background-size: cover; background-position: center;
+  opacity: 0;
+  animation: skylineFade 60s infinite;
+  transform: scale(1.08);
+  transition: transform 30s ease-out;
+}
+@keyframes skylineFade {
+  0%, 16%   { opacity: 0; transform: scale(1.06); }
+  4%, 14%   { opacity: 0.28; }
+  20%, 100% { opacity: 0; transform: scale(1.10); }
+}
+.skyline-overlay {
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse at top, rgba(10,25,41,0.25) 0%, rgba(5,10,20,0.85) 70%),
+    linear-gradient(180deg, rgba(5,10,20,0.55) 0%, rgba(5,10,20,0.92) 100%);
+  pointer-events: none;
+}
+
+/* ============ LAYOUT ============ */
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+@media (max-width: 720px) { .container { padding: 0 18px; } }
+section { padding: 96px 0; position: relative; }
+@media (max-width: 720px) { section { padding: 64px 0; } }
+.eyebrow {
+  font-family: var(--font-body); font-weight: 600; font-size: 12px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cyan-led); margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--cyan-led); }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; }
+h1 { font-size: clamp(38px, 6vw, 76px); }
+h2 { font-size: clamp(30px, 4.2vw, 52px); margin-bottom: 24px; }
+h3 { font-size: clamp(22px, 2.4vw, 30px); margin-bottom: 14px; }
+p.lead { font-size: clamp(17px, 1.4vw, 20px); color: var(--text-muted); line-height: 1.6; max-width: 64ch; }
+
+/* ============ NAV ============ */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(5,10,20,0.72);
+  border-bottom: 1px solid rgba(125,211,252,0.08);
+  padding: 14px 0;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { height: 44px; width: auto; }
+.nav-logo-text { font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; line-height: 1; }
+.nav-logo-text span { display: block; font-family: var(--font-body); font-weight: 500; font-size: 10.5px; letter-spacing: 0.16em; color: var(--cyan-led); text-transform: uppercase; margin-top: 4px; }
+.nav-menu { display: flex; align-items: center; gap: 28px; font-size: 14px; font-weight: 500; }
+.nav-menu a { color: var(--text-muted); transition: color 0.2s; }
+.nav-menu a:hover { color: var(--text); }
+.nav-cta { background: var(--pd-blue); color: white; padding: 11px 20px; border-radius: 999px; font-weight: 600; font-size: 14px; transition: all 0.25s; box-shadow: 0 8px 24px -8px rgba(37,99,235,0.6); }
+.nav-cta:hover { background: var(--pd-blue-glow); transform: translateY(-1px); box-shadow: 0 12px 32px -8px rgba(74,144,226,0.7); }
+.nav-toggle { display: none; padding: 8px; }
+@media (max-width: 980px) {
+  .nav-menu { display: none; }
+  .nav-toggle { display: block; }
+  .nav-menu.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,10,20,0.97); padding: 24px; gap: 22px; border-bottom: 1px solid var(--surface-border); }
+}
+
+/* ============ HERO ============ */
+.hero { padding: 70px 0 80px; min-height: calc(100vh - 72px); display: flex; align-items: center; position: relative; }
+.hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+@media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+.hero-trust-row { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: rgba(125,211,252,0.08); border: 1px solid rgba(125,211,252,0.16); font-size: 12px; font-weight: 600; color: var(--cyan-led); letter-spacing: 0.04em; margin-bottom: 22px; }
+.hero-trust-row .dot { width: 6px; height: 6px; background: var(--cyan-led); border-radius: 50%; box-shadow: 0 0 12px var(--cyan-led); }
+.hero h1 { margin-bottom: 22px; }
+.hero h1 .accent { display: block; font-style: italic; color: var(--cyan-led); font-weight: 400; }
+.hero-sub { font-size: clamp(16px, 1.4vw, 19px); color: var(--text-muted); margin-bottom: 36px; max-width: 540px; line-height: 1.55; }
+.hero-cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 32px; }
+.btn-primary, .btn-secondary { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: all 0.25s; cursor: pointer; }
+.btn-primary { background: var(--pd-blue); color: white; box-shadow: var(--shadow-blue); }
+.btn-primary:hover { background: var(--pd-blue-glow); transform: translateY(-2px); }
+.btn-primary svg { transition: transform 0.3s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+.btn-secondary { background: rgba(255,255,255,0.04); color: var(--text); border: 1px solid rgba(255,255,255,0.12); }
+.btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--cyan-led); }
+.hero-microbar { display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px; color: var(--text-muted); }
+.hero-microbar span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-microbar span::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--pd-blue); }
+
+.hero-photo {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 40px 100px -30px rgba(37,99,235,0.45), 0 20px 50px -10px rgba(0,0,0,0.7);
+  border: 1px solid rgba(125,211,252,0.2);
+}
+.hero-photo img { width: 100%; height: auto; display: block; aspect-ratio: 16/10; object-fit: cover; }
+.hero-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(37,99,235,0.18) 100%);
+  pointer-events: none;
+}
+.hero-photo-caption {
+  position: absolute; bottom: 14px; left: 14px;
+  background: rgba(5,10,20,0.78); backdrop-filter: blur(12px);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 12px; font-weight: 500; color: var(--cyan-led);
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(125,211,252,0.18);
+}
+
+/* ============ STATS STRIP ============ */
+.stats {
+  padding: 36px 0;
+  background: var(--surface-strong);
+  border-top: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
+  backdrop-filter: blur(20px);
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+@media (max-width: 720px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat { text-align: center; }
+.stat-num { font-family: var(--font-display); font-size: clamp(34px, 4vw, 54px); font-weight: 700; color: white; line-height: 1; letter-spacing: -0.03em; }
+.stat-num .plus { color: var(--cyan-led); font-weight: 600; }
+.stat-label { margin-top: 8px; font-size: 12.5px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+
+/* ============ WHY PD ============ */
+.why { position: relative; }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+@media (max-width: 980px) { .why-grid { grid-template-columns: 1fr; gap: 40px; } }
+.why-text p { margin-bottom: 18px; color: var(--text-muted); font-size: 16.5px; }
+.why-text p.bigger { color: var(--text); font-size: 19px; line-height: 1.55; }
+.why-text strong { color: white; font-weight: 600; }
+.signature {
+  font-family: var(--font-display); font-style: italic;
+  font-size: 24px; font-weight: 500;
+  color: var(--cyan-led);
+  margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--surface-border);
+}
+.signature small { display: block; font-family: var(--font-body); font-style: normal; font-size: 12.5px; color: var(--text-dim); margin-top: 6px; letter-spacing: 0.12em; text-transform: uppercase; }
+.why-photo { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/5; background: var(--bg-2); box-shadow: var(--shadow-card); border: 1px solid var(--surface-border); }
+.why-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.92; }
+.why-watermark { position: absolute; bottom: -40px; right: -40px; opacity: 0.06; width: 70%; pointer-events: none; }
+
+/* ============ SERVICES ============ */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+@media (max-width: 980px) { .services-grid { grid-template-columns: 1fr; } }
+.service-card {
+  background: var(--surface); border: 1px solid var(--surface-border);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.35s;
+  display: flex; flex-direction: column;
+}
+.service-card:hover { transform: translateY(-6px); border-color: rgba(125,211,252,0.32); box-shadow: var(--shadow-blue); }
+.service-photo { aspect-ratio: 16/10; overflow: hidden; position: relative; }
+.service-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.service-card:hover .service-photo img { transform: scale(1.05); }
+.service-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(5,10,20,0.85) 100%); }
+.service-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+.service-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(37,99,235,0.18); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; border: 1px solid rgba(37,99,235,0.32); }
+.service-icon svg { width: 22px; height: 22px; stroke: var(--cyan-led); }
+.service-card h3 { margin-bottom: 10px; }
+.service-card p { color: var(--text-muted); font-size: 15px; flex: 1; }
+.service-features { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--surface-border); display: flex; flex-direction: column; gap: 8px; }
+.service-features li { list-style: none; font-size: 13.5px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; }
+.service-features li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--cyan-led); flex-shrink: 0; }
+
+/* ============ FLEET SHOWCASE ============ */
+.fleet { background: linear-gradient(180deg, transparent 0%, rgba(10,25,41,0.55) 50%, transparent 100%); }
+.fleet-hero {
+  margin-top: 48px;
+  border-radius: var(--radius-lg); overflow: hidden;
+  position: relative;
+  aspect-ratio: 21/9;
+  box-shadow: 0 40px 100px -30px rgba(37,99,235,0.6), var(--shadow-card);
+  border: 1px solid rgba(125,211,252,0.22);
+}
+.fleet-hero img { width: 100%; height: 100%; object-fit: cover; }
+.fleet-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(5,10,20,0.55) 0%, transparent 50%, rgba(37,99,235,0.25) 100%);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 36px;
+}
+.fleet-hero-overlay h3 { color: white; margin-bottom: 8px; max-width: 600px; }
+.fleet-hero-overlay p { color: rgba(244,246,248,0.85); font-size: 16px; max-width: 540px; }
+
+.fleet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px; }
+@media (max-width: 720px) { .fleet-grid { grid-template-columns: 1fr; } }
+.fleet-card { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 16/10; border: 1px solid var(--surface-border); box-shadow: var(--shadow-card); }
+.fleet-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+.fleet-card:hover img { transform: scale(1.04); }
+.fleet-card-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px 22px 22px;
+  background: linear-gradient(180deg, transparent 0%, rgba(5,10,20,0.92) 100%);
+}
+.fleet-card-caption strong { display: block; font-family: var(--font-display); font-size: 20px; font-weight: 600; color: white; margin-bottom: 4px; }
+.fleet-card-caption span { font-size: 13px; color: var(--cyan-led); letter-spacing: 0.06em; }
+
+/* ============ DIFFERENTIATORS ============ */
+.diff-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 48px; }
+@media (max-width: 1024px) { .diff-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .diff-grid { grid-template-columns: 1fr; } }
+.diff-card {
+  background: var(--surface); border: 1px solid var(--surface-border);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius); padding: 22px; min-height: 220px;
+  display: flex; flex-direction: column;
+  transition: all 0.3s;
+}
+.diff-card:hover { border-color: rgba(125,211,252,0.32); transform: translateY(-4px); }
+.diff-card .num { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--cyan-led); margin-bottom: 14px; line-height: 1; }
+.diff-card h4 { font-size: 17px; margin-bottom: 8px; }
+.diff-card p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+/* ============ PORTAL PREVIEW ============ */
+.portal-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; margin-top: 32px; }
+@media (max-width: 980px) { .portal-grid { grid-template-columns: 1fr; } }
+.portal-mock {
+  background: var(--surface-strong); border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 40px 100px -30px rgba(37,99,235,0.4), var(--shadow-card);
+  font-size: 13px;
+}
+.portal-chrome {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px;
+  background: rgba(5,10,20,0.85); border-bottom: 1px solid var(--surface-border);
+}
+.portal-chrome .dot-r { width: 11px; height: 11px; border-radius: 50%; background: #ef4444; }
+.portal-chrome .dot-y { width: 11px; height: 11px; border-radius: 50%; background: #f59e0b; }
+.portal-chrome .dot-g { width: 11px; height: 11px; border-radius: 50%; background: #22c55e; }
+.portal-chrome .url { margin-left: 12px; padding: 5px 12px; background: rgba(0,0,0,0.4); border-radius: 6px; font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', monospace; }
+.portal-body { padding: 22px; }
+.portal-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--surface-border); margin-bottom: 16px; }
+.portal-header strong { font-size: 15px; font-weight: 600; color: white; }
+.portal-header .live { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--success); }
+.portal-header .live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px var(--success); animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+.portal-table { width: 100%; font-size: 12.5px; }
+.portal-table thead { font-size: 10px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; }
+.portal-table th, .portal-table td { text-align: left; padding: 10px 8px; border-bottom: 1px solid rgba(125,211,252,0.06); }
+.portal-table td { color: var(--text-muted); }
+.portal-table td.bold { color: white; font-weight: 500; }
+.portal-table .thumb { width: 32px; height: 24px; border-radius: 4px; background: var(--bg-2); display: inline-block; overflow: hidden; vertical-align: middle; margin-right: 8px; border: 1px solid var(--surface-border); }
+.portal-table .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.portal-foot { margin-top: 16px; display: flex; justify-content: space-between; align-items: center; }
+.portal-cta { font-size: 12px; color: var(--cyan-led); }
+
+/* ============ TESTIMONIALS ============ */
+.testimonials { background: linear-gradient(180deg, transparent, rgba(10,25,41,0.45), transparent); }
+.testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+@media (max-width: 980px) { .testimonial-grid { grid-template-columns: 1fr; } }
+.testimonial {
+  background: var(--surface); border: 1px solid var(--surface-border);
+  backdrop-filter: blur(20px); border-radius: var(--radius-lg); padding: 32px 28px;
+  display: flex; flex-direction: column;
+}
+.t-stars { display: flex; gap: 3px; margin-bottom: 18px; }
+.t-stars svg { width: 16px; height: 16px; fill: var(--gold); }
+.testimonial blockquote { font-family: var(--font-display); font-size: 19px; font-weight: 500; color: white; line-height: 1.4; margin-bottom: 22px; flex: 1; letter-spacing: -0.01em; }
+.t-author { padding-top: 18px; border-top: 1px solid var(--surface-border); }
+.t-author strong { display: block; font-size: 14px; font-weight: 600; color: white; }
+.t-author span { font-size: 12px; color: var(--cyan-led); letter-spacing: 0.06em; text-transform: uppercase; }
+.t-placeholder { position: absolute; top: 12px; right: 12px; font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 0.16em; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.4); padding: 4px 9px; border-radius: 4px; }
+.testimonial { position: relative; }
+.testimonial-banner { margin-bottom: 24px; padding: 12px 18px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; font-size: 13px; color: var(--gold); text-align: center; }
+
+/* ============ BEFORE / AFTER LOT STRIPING ============ */
+.cases { background: linear-gradient(180deg, transparent, rgba(5,10,20,0.55) 50%, transparent); }
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 48px; }
+@media (max-width: 720px) { .case-grid { grid-template-columns: 1fr; } }
+.case {
+  background: var(--surface); border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  backdrop-filter: blur(20px);
+}
+.case-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.case-pair .pane { aspect-ratio: 1; position: relative; overflow: hidden; }
+.case-pair .pane img { width: 100%; height: 100%; object-fit: cover; }
+.case-pair .pane.before::before,
+.case-pair .pane.after::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 65%, rgba(5,10,20,0.92) 100%);
+}
+.case-pair .pane .tag {
+  position: absolute; bottom: 12px; left: 12px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+  padding: 4px 10px; border-radius: 4px;
+}
+.case-pair .before .tag { background: rgba(239,68,68,0.18); color: #fca5a5; border: 1px solid rgba(239,68,68,0.32); }
+.case-pair .after .tag { background: rgba(34,197,94,0.18); color: #86efac; border: 1px solid rgba(34,197,94,0.32); }
+.case-body { padding: 24px; }
+.case-body h4 { font-size: 18px; margin-bottom: 8px; }
+.case-body p { font-size: 14.5px; color: var(--text-muted); line-height: 1.55; }
+.case-result { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 6px 12px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); border-radius: 999px; font-size: 12px; color: #86efac; font-weight: 500; }
+
+/* ============ SERVICE AREA MAP ============ */
+.map-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center; margin-top: 32px; }
+@media (max-width: 980px) { .map-grid { grid-template-columns: 1fr; } }
+.area-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 24px; }
+.area-list li { list-style: none; font-size: 14.5px; color: var(--text-muted); padding: 6px 0; display: flex; align-items: center; gap: 10px; }
+.area-list li::before { content: ''; width: 6px; height: 6px; background: var(--cyan-led); border-radius: 50%; box-shadow: 0 0 8px var(--cyan-led); }
+.area-list li.primary { color: white; font-weight: 500; }
+.map-frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  background: var(--bg-2);
+  aspect-ratio: 4/3;
+  box-shadow: var(--shadow-card);
+}
+.map-svg { width: 100%; height: 100%; display: block; }
+.map-watermark {
+  position: absolute; top: 18px; left: 18px;
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--cyan-led);
+  background: rgba(5,10,20,0.85); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--surface-border);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.map-watermark img { height: 28px; width: auto; opacity: 0.95; }
+
+/* ============ RESIDENT BLOCK ============ */
+.resident { padding: 56px 0; }
+.resident-box {
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.22);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px;
+  align-items: center;
+  backdrop-filter: blur(20px);
+}
+@media (max-width: 720px) { .resident-box { grid-template-columns: 1fr; } }
+.resident-box .label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: #fca5a5; margin-bottom: 8px; }
+.resident-box h3 { font-size: 24px; margin-bottom: 8px; color: white; }
+.resident-box p { color: var(--text-muted); font-size: 15px; max-width: 540px; }
+.resident-steps { display: flex; gap: 12px; margin-top: 16px; }
+.resident-steps span { font-size: 13px; color: var(--text-muted); }
+
+/* ============ PRICING ============ */
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+@media (max-width: 980px) { .pricing-grid { grid-template-columns: 1fr; } }
+.price {
+  background: var(--surface); border: 1px solid var(--surface-border);
+  backdrop-filter: blur(20px); border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  display: flex; flex-direction: column;
+  position: relative;
+  transition: all 0.3s;
+}
+.price.featured {
+  border-color: var(--pd-blue);
+  background: linear-gradient(180deg, rgba(37,99,235,0.10), var(--surface));
+  box-shadow: var(--shadow-blue);
+  transform: scale(1.02);
+}
+.price-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--pd-blue); color: white; padding: 5px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.price h3 { font-size: 22px; margin-bottom: 6px; }
+.price .tag { font-size: 13px; color: var(--cyan-led); letter-spacing: 0.06em; margin-bottom: 24px; }
+.price .amount { font-family: var(--font-display); font-size: 46px; font-weight: 700; color: white; line-height: 1; }
+.price .amount span { font-size: 16px; color: var(--text-muted); font-weight: 500; }
+.price .setup { font-size: 13px; color: var(--text-muted); margin-top: 6px; margin-bottom: 24px; }
+.price ul { list-style: none; flex: 1; }
+.price li { font-size: 14px; color: var(--text); padding: 9px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px dashed rgba(125,211,252,0.08); }
+.price li:last-child { border-bottom: none; }
+.price li svg { flex-shrink: 0; width: 16px; height: 16px; stroke: var(--success); margin-top: 2px; }
+.price li.dim { color: var(--text-dim); }
+.price li.dim svg { stroke: var(--text-dim); }
+.price-cta { margin-top: 26px; padding: 14px; background: var(--pd-blue); color: white; border-radius: 12px; font-weight: 600; font-size: 14px; text-align: center; transition: all 0.25s; }
+.price-cta:hover { background: var(--pd-blue-glow); }
+.price:not(.featured) .price-cta { background: rgba(255,255,255,0.06); color: white; border: 1px solid var(--surface-border); }
+.price:not(.featured) .price-cta:hover { background: rgba(125,211,252,0.12); border-color: var(--cyan-led); }
+
+/* ============ FAQ ============ */
+.faq-list { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: var(--surface); border: 1px solid var(--surface-border);
+  backdrop-filter: blur(16px); border-radius: var(--radius); overflow: hidden;
+}
+.faq-q {
+  width: 100%; text-align: left;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px;
+  font-family: var(--font-display); font-size: 17px; font-weight: 500; color: white;
+  transition: all 0.25s;
+}
+.faq-q:hover { background: rgba(125,211,252,0.04); }
+.faq-q .chev { transition: transform 0.3s; flex-shrink: 0; margin-left: 16px; }
+.faq-item.open .faq-q .chev { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 24px;
+  font-size: 15px; color: var(--text-muted); line-height: 1.65;
+}
+.faq-item.open .faq-a { max-height: 400px; padding: 0 24px 22px; }
+
+/* ============ FINAL CTA ============ */
+.cta-final { padding: 100px 0; position: relative; }
+.cta-card {
+  background: linear-gradient(135deg, rgba(37,99,235,0.18) 0%, rgba(10,25,41,0.92) 100%);
+  border: 1px solid rgba(125,211,252,0.28);
+  backdrop-filter: blur(28px);
+  border-radius: 26px;
+  padding: 56px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+  box-shadow: 0 60px 120px -40px rgba(37,99,235,0.5);
+}
+@media (max-width: 980px) { .cta-card { grid-template-columns: 1fr; padding: 36px; } }
+.cta-form { display: flex; flex-direction: column; gap: 12px; }
+.cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 540px) { .cta-form-row { grid-template-columns: 1fr; } }
+.cta-form input, .cta-form select {
+  background: rgba(5,10,20,0.6); border: 1px solid var(--surface-border);
+  padding: 14px 16px; border-radius: 12px; font: inherit; color: white;
+  font-size: 14.5px; transition: border-color 0.2s;
+}
+.cta-form input::placeholder, .cta-form select { color: var(--text-dim); }
+.cta-form input:focus, .cta-form select:focus { border-color: var(--cyan-led); outline: none; }
+.cta-form button {
+  background: var(--pd-blue); color: white; padding: 16px; border-radius: 12px;
+  font-weight: 600; font-size: 15px; margin-top: 6px;
+  transition: all 0.25s; box-shadow: var(--shadow-blue);
+}
+.cta-form button:hover { background: var(--pd-blue-glow); }
+.cta-success { display: none; padding: 14px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.35); border-radius: 12px; color: #86efac; font-size: 14px; text-align: center; }
+.cta-success.show { display: block; }
+
+/* ============ FOOTER ============ */
+footer { padding: 64px 0 32px; border-top: 1px solid var(--surface-border); background: rgba(5,10,20,0.82); backdrop-filter: blur(20px); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 36px; }
+@media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+.footer-col h5 { font-family: var(--font-body); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan-led); font-weight: 600; margin-bottom: 16px; }
+.footer-col p, .footer-col li { color: var(--text-muted); font-size: 14px; line-height: 1.8; }
+.footer-col li { list-style: none; }
+.footer-col a { transition: color 0.2s; }
+.footer-col a:hover { color: var(--text); }
+.footer-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.footer-logo img { height: 40px; }
+.footer-logo-text { font-family: var(--font-display); font-size: 15px; font-weight: 600; }
+.footer-logo-text small { display: block; font-family: var(--font-body); font-size: 10px; color: var(--cyan-led); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 4px; }
+.footer-bottom { padding-top: 24px; border-top: 1px solid var(--surface-border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--text-dim); }
+.footer-bottom .built-by { color: var(--cyan-led); }
+
+/* ============ REVEAL ANIMATION ============ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ============ DEE CHAT WIDGET MOUNT ============ */
+#dee-chat-root { position: fixed; bottom: 24px; right: 24px; z-index: 100; }
+
+/* ============ PRINT ============ */
+@media print { .skyline-bg, .skyline-overlay, .nav, #dee-chat-root { display: none; } body { background: white; color: black; } }
+</style>
+</head>
+<body>
+
+<!-- ============ SKYLINE BACKGROUND ============ -->
+<div class="skyline-bg" aria-hidden="true">
+  <div class="skyline-layer skyline-1"></div>
+  <div class="skyline-layer skyline-2"></div>
+  <div class="skyline-layer skyline-3"></div>
+  <div class="skyline-layer skyline-4"></div>
+  <div class="skyline-layer skyline-5"></div>
+</div>
+<div class="skyline-overlay" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="PD Towing of Houston logo" />
+      <div class="nav-logo-text">PD Towing<span>of Houston</span></div>
+    </a>
+    <div class="nav-menu" id="navMenu">
+      <a href="#services">Services</a>
+      <a href="#fleet">Fleet</a>
+      <a href="#portal">Property Portal</a>
+      <a href="#cases">Lot Striping</a>
+      <a href="#area">Service Area</a>
+      <a href="#partner">Partner With Us</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="nav-cta">Free Site Audit</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text reveal">
+        <div class="hero-trust-row"><span class="dot"></span> TDLR COMPLIANT · 24/7/365 OPERATION</div>
+        <h1>The Private<br/>Property<br/><span class="accent">Specialists.</span></h1>
+        <p class="hero-sub">Houston's most trusted 24/7 parking enforcement and lot striping. 15+ years. Family-owned. Built on <strong style="color:var(--text);">Personal Dedication</strong> — the principle PD is named after.</p>
+        <div class="hero-cta-row">
+          <a href="#contact" class="btn-primary">
+            Request a Free Site Audit
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="tel:8324966891" class="btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            832-496-6891
+          </a>
+        </div>
+        <div class="hero-microbar">
+          <span>Photo-documented every tow</span>
+          <span>Police line notified</span>
+          <span>9 cities served</span>
+        </div>
+      </div>
+      <div class="hero-photo reveal">
+        <img src="https://pdtowingofhouston.com/images/h4.jpg" alt="PD Towing of Houston night shift tow trucks with blue LED lighting" />
+        <div class="hero-photo-caption">NIGHT SHIFT · ALWAYS ON</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS STRIP ============ -->
+<div class="stats" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal"><div class="stat-num" data-count="15">0<span class="plus">+</span></div><div class="stat-label">Years Family-Owned</div></div>
+      <div class="stat reveal"><div class="stat-num">24/7<span class="plus">/365</span></div><div class="stat-label">Operation</div></div>
+      <div class="stat reveal"><div class="stat-num" data-count="9">0</div><div class="stat-label">Cities Served</div></div>
+      <div class="stat reveal"><div class="stat-num">100<span class="plus">%</span></div><div class="stat-label">Tows Photo-Documented</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ WHY PD ============ -->
+<section class="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-text reveal">
+        <div class="eyebrow">Why PD</div>
+        <h2>Personal Dedication.<br/>It's not a tagline — it's the founding principle.</h2>
+        <p class="bigger">When the family started <strong>PD Towing of Houston</strong>, they named the company after the philosophy they ran it by: <em style="color:var(--cyan-led);">Personal Dedication</em>. Going the extra mile for every community. Building relationships, not just clearing fire lanes.</p>
+        <p>Fifteen-plus years and countless tows later, every truck in the fleet still answers a property manager's call inside the same hour. Every vehicle moved is photographed from every angle, time-stamped, and called into the police line before the wrecker leaves the lot. Every storage facility we partner with is state-licensed, located within 20 minutes of the community, and accepts most major cards.</p>
+        <p>It's why apartment communities, strip malls, and HOAs from Cypress to Sugarland keep us on retainer. The work is the same as anyone else's. <strong>The way we do it isn't.</strong></p>
+        <div class="signature">
+          PD Towing of Houston
+          <small>"The Private Property Specialists"</small>
+        </div>
+      </div>
+      <div class="why-photo reveal">
+        <img src="https://pdtowingofhouston.com/images/h1.jpg" alt="The PD Towing crew with the white pickup fleet" />
+        <img class="why-watermark" src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="" aria-hidden="true" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom: 12px;">
+      <div class="eyebrow" style="justify-content:center;">What we do</div>
+      <h2 style="max-width: 760px; margin: 0 auto;">Three services. One promise: <span style="color:var(--cyan-led); font-style:italic;">your property, handled.</span></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-photo"><img src="https://pdtowingofhouston.com/images/h2.jpg" alt="PD Towing black heavy-duty tow fleet" /></div>
+        <div class="service-body">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 11l2-7h7l3 4h3v6h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
+          <h3>Private Property Towing</h3>
+          <p>24/7 parking enforcement for apartment communities, strip malls, and commercial properties. Every tow photographed, every removal called into the police line, every receipt in the property manager's inbox before the truck is back on patrol.</p>
+          <ul class="service-features">
+            <li>Daily community patrols</li>
+            <li>Digital photo evidence on every tow</li>
+            <li>State-licensed storage facilities within 20 minutes</li>
+            <li>TDLR-compliant tow tickets with full vehicle records</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-photo"><img src="https://pdtowingofhouston.com/images/towing/20160809_114358_resized.jpg" alt="Fresh lot striping work" /></div>
+        <div class="service-body">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3v18M3 12h18M5 5l14 14M19 5L5 19"/></svg></div>
+          <h3>Lot Striping &amp; Signage</h3>
+          <p>Faded lines invite violations. Bad signage invites lawsuits. Our crew restripes, repaints, and resigns parking lots to ADA spec — including fire lanes, handicap spaces, curb painting, and tow-zone signage. Compliant. Sharp. Done in a single day for most lots.</p>
+          <ul class="service-features">
+            <li>ADA-compliant handicap markings</li>
+            <li>Fire-lane repainting + signage</li>
+            <li>Curb &amp; arrow markings</li>
+            <li>Tow-zone signs installed to code</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-photo"><img src="https://pdtowingofhouston.com/images/two_trucks2.jpg" alt="PD Towing wreckers ready to transport vehicles to partner storage lots" /></div>
+        <div class="service-body">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <h3>Storage Coordination</h3>
+          <p>Five state-licensed storage partners across Houston — KTL, Minetta, Off The Hook, Conklin, Farrell. Vehicles transported to the nearest available lot, retrievable 24/7, most major cards and cash accepted, printed receipt every time.</p>
+          <ul class="service-features">
+            <li>5 partner storage facilities</li>
+            <li>Within 20 minutes of every community</li>
+            <li>Cards + cash accepted</li>
+            <li>Printed receipt for every retrieval</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLEET SHOWCASE ============ -->
+<section class="fleet" id="fleet">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Our fleet · our crew · our standard</div>
+      <h2 style="max-width: 720px;">The trucks you'll see <span style="color:var(--cyan-led); font-style:italic;">on your property.</span></h2>
+      <p class="lead">No subcontracted strangers. No unmarked vehicles. The same wreckers, the same uniformed crew, the same Cypress base — every shift.</p>
+    </div>
+    <div class="fleet-hero reveal">
+      <img src="https://pdtowingofhouston.com/images/h2.jpg" alt="Four PD Towing heavy-duty F-450 wreckers lined up at the Cypress shop" />
+      <div class="fleet-hero-overlay">
+        <h3>Four heavy-duty wreckers. One Cypress base.</h3>
+        <p>Ford F-450 Super Duty configuration — rollback and wheel-lift — equipped with onboard laptops and surveillance cameras. Built for any removal scenario, day or night.</p>
+      </div>
+    </div>
+    <div class="fleet-grid">
+      <div class="fleet-card reveal">
+        <img src="https://pdtowingofhouston.com/images/h1.jpg" alt="PD Towing crew with white pickup fleet" />
+        <div class="fleet-card-caption">
+          <strong>Our patrol crew.</strong>
+          <span>READY 24/7 · IN UNIFORM · ON CALL</span>
+        </div>
+      </div>
+      <div class="fleet-card reveal">
+        <img src="https://pdtowingofhouston.com/images/h4.jpg" alt="PD Towing tow trucks with blue LED under-glow lighting at night" />
+        <div class="fleet-card-caption">
+          <strong>Night shift. Always on.</strong>
+          <span>BLUE-LED FLEET · 24/7 DISPATCH</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIFFERENTIATORS ============ -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">What other towing companies don't show you</div>
+      <h2 style="max-width: 760px;">Behind every tow: <span style="color:var(--cyan-led); font-style:italic;">a paper trail you can prove in court.</span></h2>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card reveal">
+        <div class="num">01</div>
+        <h4>Photo evidence</h4>
+        <p>Every vehicle photographed from multiple angles with auto-imprinted date and time. Stored in our database. Available to property managers within minutes.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="num">02</div>
+        <h4>Police line notified</h4>
+        <p>Every tow called into the police line before the wrecker leaves. Reference number on the ticket. Resident can locate their vehicle instantly.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="num">03</div>
+        <h4>TDLR compliant</h4>
+        <p>Operating in strict compliance with Texas Department of Licensing and Regulation rules. No free lot painting. No grey-area towing. Clean record.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="num">04</div>
+        <h4>Instant invoicing</h4>
+        <p>Email invoice plus photos delivered to the property manager within minutes of every tow. No spreadsheets. No "we'll send it later." It's already there.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="num">05</div>
+        <h4>Modern fleet</h4>
+        <p>Every truck equipped with onboard laptops, surveillance cameras, and rollback / wheel-lift configurations for any vehicle removal scenario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTAL PREVIEW ============ -->
+<section id="portal">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Property manager portal</div>
+      <h2 style="max-width:740px;">Every tow, every photo, every invoice — <span style="color:var(--cyan-led); font-style:italic;">on one screen.</span></h2>
+      <p class="lead">Property managers log in from their phone, see today's tows in real-time, download invoices, audit photo evidence. This is what the new site unlocks for every client community.</p>
+    </div>
+    <div class="portal-grid">
+      <div class="reveal">
+        <h3 style="font-size:22px;">Built for the way property managers actually work.</h3>
+        <p style="color:var(--text-muted); margin-bottom: 18px;">Right now, your community's tow records live in three places: an inbox somewhere, a paper ticket on a clipboard, and the dispatcher's memory. The portal puts them in one place that opens in a browser and works on a phone.</p>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:10px; font-size:14.5px; color:var(--text);">
+          <li style="display:flex; gap:10px;"><span style="color:var(--cyan-led);">→</span> Live tow log with photo thumbnails</li>
+          <li style="display:flex; gap:10px;"><span style="color:var(--cyan-led);">→</span> One-click invoice download (PDF, CSV)</li>
+          <li style="display:flex; gap:10px;"><span style="color:var(--cyan-led);">→</span> "Report a Vehicle" form with photo upload</li>
+          <li style="display:flex; gap:10px;"><span style="color:var(--cyan-led);">→</span> Monthly compliance report ready for the HOA board</li>
+        </ul>
+      </div>
+      <div class="portal-mock reveal">
+        <div class="portal-chrome">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <span class="url">portal.pdtowingofhouston.com / dashboard</span>
+        </div>
+        <div class="portal-body">
+          <div class="portal-header">
+            <strong>Recent Tows · [Property Name]</strong>
+            <span class="live">LIVE</span>
+          </div>
+          <table class="portal-table">
+            <thead>
+              <tr><th>Photo</th><th>Vehicle</th><th>Violation</th><th>Time</th><th>Storage</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="thumb"><img src="https://pdtowingofhouston.com/images/towing/20160803_151902_resized.jpg" alt=""/></span></td>
+                <td class="bold">'19 Silverado · TX 4K7-823</td>
+                <td>Fire Lane</td>
+                <td>2:14 AM</td>
+                <td>KTL</td>
+              </tr>
+              <tr>
+                <td><span class="thumb"><img src="https://pdtowingofhouston.com/images/towing/20160809_110345_resized.jpg" alt=""/></span></td>
+                <td class="bold">'17 Camry · TX 8M9-441</td>
+                <td>No Tag</td>
+                <td>1:02 AM</td>
+                <td>Minetta</td>
+              </tr>
+              <tr>
+                <td><span class="thumb"><img src="https://pdtowingofhouston.com/images/towing/20160803_151850_resized.jpg" alt=""/></span></td>
+                <td class="bold">'21 F-150 · TX 5R2-118</td>
+                <td>Blocked Dumpster</td>
+                <td>11:47 PM</td>
+                <td>Off The Hook</td>
+              </tr>
+              <tr>
+                <td><span class="thumb"><img src="https://pdtowingofhouston.com/images/towing/20160217_122706_resized_1.jpg" alt=""/></span></td>
+                <td class="bold">'15 Sienna · TX 2P8-901</td>
+                <td>Abandoned</td>
+                <td>10:34 PM</td>
+                <td>Conklin</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="portal-foot">
+            <span style="font-size: 11px; color: var(--text-dim);">Showing 4 of 28 this month</span>
+            <span class="portal-cta">View all + download invoices →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">From the property managers we serve</div>
+      <h2>"We don't think about parking anymore."</h2>
+    </div>
+    <div class="testimonial-banner reveal">⚡ Sample testimonials — placeholder content shown to demo the design. PD's actual client quotes will replace these after launch.</div>
+    <div class="testimonial-grid">
+      <div class="testimonial reveal">
+        <span class="t-placeholder">SAMPLE</span>
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+        </div>
+        <blockquote>"PD's our tow vendor. They show up before I finish the call. The photo evidence quietly kills most resident complaints before they escalate."</blockquote>
+        <div class="t-author">
+          <strong>[Property Manager Name]</strong>
+          <span>[Apartment Community · Cypress]</span>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <span class="t-placeholder">SAMPLE</span>
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+        </div>
+        <blockquote>"The lot striping work they did at our strip mall was finished in one day. No mess. ADA-compliant. The board signed off without a single question."</blockquote>
+        <div class="t-author">
+          <strong>[Property Manager Name]</strong>
+          <span>[Strip Mall · Houston Area]</span>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <span class="t-placeholder">SAMPLE</span>
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 4.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
+        </div>
+        <blockquote>"Other tow companies disappeared at midnight. PD answers the phone at 3 AM when a fire lane is blocked. That responsiveness is the whole reason we partner with them."</blockquote>
+        <div class="t-author">
+          <strong>[HOA Board Member]</strong>
+          <span>[Townhome Community · Sugarland Area]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="cases" id="cases">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Lot striping case studies</div>
+      <h2 style="max-width: 760px;">Faded lines become liability. <span style="color:var(--cyan-led); font-style:italic;">We restripe them in one day.</span></h2>
+    </div>
+    <div class="case-grid">
+      <div class="case reveal">
+        <div class="case-pair">
+          <div class="pane before"><img src="https://pdtowingofhouston.com/images/towing/20150908_152544_resized.jpg" alt="" /><span class="tag">BEFORE</span></div>
+          <div class="pane after"><img src="https://pdtowingofhouston.com/images/towing/20150908_154130_resized.jpg" alt="" /><span class="tag">AFTER</span></div>
+        </div>
+        <div class="case-body">
+          <h4>Apartment Community · Cypress Area</h4>
+          <p>Faded fire-lane markings created ongoing safety risk. Full repaint plus new tow-zone signage installed inside a single afternoon.</p>
+          <div class="case-result">→ ADA-compliant · same-day turnaround</div>
+        </div>
+      </div>
+      <div class="case reveal">
+        <div class="case-pair">
+          <div class="pane before"><img src="https://pdtowingofhouston.com/images/towing/20160217_122706_resized_1.jpg" alt="" /><span class="tag">BEFORE</span></div>
+          <div class="pane after"><img src="https://pdtowingofhouston.com/images/towing/20160217_122839_resized_1.jpg" alt="" /><span class="tag">AFTER</span></div>
+        </div>
+        <div class="case-body">
+          <h4>Strip Mall · Houston Area</h4>
+          <p>Handicap markings out of ADA spec, putting the property at compliance risk. Full ADA-compliant repaint plus accessibility signage.</p>
+          <div class="case-result">→ Full ADA repaint · one visit</div>
+        </div>
+      </div>
+      <div class="case reveal">
+        <div class="case-pair">
+          <div class="pane before"><img src="https://pdtowingofhouston.com/images/towing/20160803_151850_resized.jpg" alt="" /><span class="tag">BEFORE</span></div>
+          <div class="pane after"><img src="https://pdtowingofhouston.com/images/towing/20160803_151902_resized.jpg" alt="" /><span class="tag">AFTER</span></div>
+        </div>
+        <div class="case-body">
+          <h4>Office Park · The Woodlands Area</h4>
+          <p>Worn-out parking lot was degrading the property's curb appeal. Full restripe to sharpen visual standards plus updated tow-zone signage.</p>
+          <div class="case-result">→ Lot refreshed · signage refreshed</div>
+        </div>
+      </div>
+      <div class="case reveal">
+        <div class="case-pair">
+          <div class="pane before"><img src="https://pdtowingofhouston.com/images/towing/20160809_114358_resized.jpg" alt="" /><span class="tag">BEFORE</span></div>
+          <div class="pane after"><img src="https://pdtowingofhouston.com/images/towing/20160809_114411_resized.jpg" alt="" /><span class="tag">AFTER</span></div>
+        </div>
+        <div class="case-body">
+          <h4>HOA Community · Sugarland Area</h4>
+          <p>Reserved spaces became unreadable, leading to ongoing resident-parking confusion. Full numbered-space restripe with reserved-resident curb painting.</p>
+          <div class="case-result">→ Clean numbered spaces · curb-painted</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section id="area">
+  <div class="container">
+    <div class="map-grid">
+      <div class="reveal">
+        <div class="eyebrow">Where we patrol</div>
+        <h2>9 cities. <span style="color:var(--cyan-led); font-style:italic;">One Cypress base.</span></h2>
+        <p class="lead">From The Woodlands south to Sugarland, every property we serve is within reach of a wrecker on patrol — and within 20 minutes of a partner storage lot.</p>
+        <ul class="area-list">
+          <li class="primary">Houston</li>
+          <li class="primary">Cypress</li>
+          <li>Katy</li>
+          <li>Tomball</li>
+          <li>The Woodlands</li>
+          <li>Sugarland</li>
+          <li>Conroe</li>
+          <li>Plantersville</li>
+          <li>Willis</li>
+          <li>Magnolia</li>
+        </ul>
+      </div>
+      <div class="map-frame reveal">
+        <div class="map-watermark"><img src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="PD Towing of Houston" />9 CITIES SERVED</div>
+        <svg class="map-svg" viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="cityGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#2563eb" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+            </radialGradient>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2433" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="600" height="450" fill="#050a14"/>
+          <rect width="600" height="450" fill="url(#grid)"/>
+          <!-- highway lines -->
+          <path d="M 0 280 Q 200 240 320 250 T 600 230" fill="none" stroke="#1a2433" stroke-width="2"/>
+          <path d="M 280 0 Q 290 150 320 250 T 340 450" fill="none" stroke="#1a2433" stroke-width="2"/>
+          <path d="M 50 100 Q 200 180 350 200 T 580 380" fill="none" stroke="#1a2433" stroke-width="2"/>
+          <!-- city circles with glow + label -->
+          <g><circle cx="320" cy="250" r="40" fill="url(#cityGlow)"/><circle cx="320" cy="250" r="6" fill="#2563eb"/><circle cx="320" cy="250" r="3" fill="#7dd3fc"/><text x="335" y="248" fill="#f4f6f8" font-family="Inter" font-size="13" font-weight="600">Houston</text></g>
+          <g><circle cx="200" cy="200" r="30" fill="url(#cityGlow)"/><circle cx="200" cy="200" r="5" fill="#2563eb"/><circle cx="200" cy="200" r="2.5" fill="#7dd3fc"/><text x="160" y="190" fill="#7dd3fc" font-family="Inter" font-size="12" font-weight="600">Cypress</text></g>
+          <g><circle cx="155" cy="290" r="25" fill="url(#cityGlow)"/><circle cx="155" cy="290" r="4" fill="#2563eb"/><text x="120" y="310" fill="#94a3b8" font-family="Inter" font-size="11">Katy</text></g>
+          <g><circle cx="220" cy="115" r="25" fill="url(#cityGlow)"/><circle cx="220" cy="115" r="4" fill="#2563eb"/><text x="232" y="113" fill="#94a3b8" font-family="Inter" font-size="11">Tomball</text></g>
+          <g><circle cx="320" cy="95" r="28" fill="url(#cityGlow)"/><circle cx="320" cy="95" r="4" fill="#2563eb"/><text x="332" y="93" fill="#94a3b8" font-family="Inter" font-size="11">The Woodlands</text></g>
+          <g><circle cx="220" cy="370" r="25" fill="url(#cityGlow)"/><circle cx="220" cy="370" r="4" fill="#2563eb"/><text x="160" y="390" fill="#94a3b8" font-family="Inter" font-size="11">Sugarland</text></g>
+          <g><circle cx="380" cy="50" r="22" fill="url(#cityGlow)"/><circle cx="380" cy="50" r="3.5" fill="#2563eb"/><text x="390" y="48" fill="#64748b" font-family="Inter" font-size="10">Conroe</text></g>
+          <g><circle cx="160" cy="50" r="20" fill="url(#cityGlow)"/><circle cx="160" cy="50" r="3.5" fill="#2563eb"/><text x="60" y="48" fill="#64748b" font-family="Inter" font-size="10">Plantersville</text></g>
+          <g><circle cx="450" cy="120" r="22" fill="url(#cityGlow)"/><circle cx="450" cy="120" r="3.5" fill="#2563eb"/><text x="460" y="118" fill="#64748b" font-family="Inter" font-size="10">Willis</text></g>
+          <g><circle cx="500" cy="170" r="22" fill="url(#cityGlow)"/><circle cx="500" cy="170" r="3.5" fill="#2563eb"/><text x="510" y="168" fill="#64748b" font-family="Inter" font-size="10">Magnolia</text></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESIDENT BLOCK ============ -->
+<section class="resident">
+  <div class="container">
+    <div class="resident-box reveal">
+      <div>
+        <div class="label">If you think you've been towed</div>
+        <h3>Three steps to find your vehicle.</h3>
+        <p>1. Call <strong style="color:white;">832-496-6891</strong>. We'll tell you immediately where your vehicle was taken.<br/>2. Bring photo ID, registration proof, and payment.<br/>3. Most storage lots accept major cards. Printed receipt at retrieval.</p>
+      </div>
+      <a href="tel:8324966891" class="btn-primary" style="background:#ef4444;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call PD Now
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNER WITH PD ============ -->
+<section id="partner">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Partner with PD</div>
+      <h2>Every property is different. <span style="color:var(--cyan-led); font-style:italic;">Every quote is too.</span></h2>
+      <p class="lead" style="margin: 0 auto;">Tow rates and patrol fees are regulated by the Texas Department of Licensing &amp; Regulation and vary by property size, foot traffic, vehicle classes, and the parking issues you're trying to solve. We don't list flat rates because they'd be misleading. What we do — for every property — is walk it for free.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price reveal">
+        <h3>Watch &amp; Tow</h3>
+        <div class="tag">As-needed dispatch</div>
+        <div class="amount">Custom<span> quote</span></div>
+        <div class="setup">No retainer · pay per call · 24/7 dispatch</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> 24/7 dispatch line answered by our team</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Standard tow rates per TDLR</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Photo evidence on every tow</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Police-line notification included</li>
+          <li class="dim"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Daily patrols</li>
+          <li class="dim"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Lot striping included</li>
+        </ul>
+        <a href="#contact" class="price-cta">Request a free site audit</a>
+      </div>
+
+      <div class="price featured reveal">
+        <span class="price-badge">Most common</span>
+        <h3>Active Patrol</h3>
+        <div class="tag">Daily patrols + 24/7 dispatch</div>
+        <div class="amount">Custom<span> quote</span></div>
+        <div class="setup">Monthly partnership · scoped to your property</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Everything in Watch &amp; Tow</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Daily community patrols by our crew</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Tow-zone signage installed to TDLR code</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Email invoicing with photos — within minutes of every tow</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Property-manager portal access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Monthly tow log + photo archive</li>
+        </ul>
+        <a href="#contact" class="price-cta">Request a free site audit</a>
+      </div>
+
+      <div class="price reveal">
+        <h3>Full Partnership</h3>
+        <div class="tag">Patrol + striping + compliance</div>
+        <div class="amount">Custom<span> quote</span></div>
+        <div class="setup">Property + striping + signage · one vendor</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Everything in Active Patrol</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Full lot striping (fire lanes, ADA, curbs)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Annual restripe + signage refresh</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Monthly compliance report (HOA-board ready)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Quarterly walk-through with your property manager</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Priority dispatch on emergency calls</li>
+        </ul>
+        <a href="#contact" class="price-cta">Request a free site audit</a>
+      </div>
+    </div>
+
+    <p class="reveal" style="text-align:center; margin-top: 36px; color: var(--text-muted); font-size: 14.5px;">Not sure which fits? <a href="#" onclick="window.deeChat && window.deeChat.open(); return false;" style="color: var(--cyan-led); border-bottom: 1px dashed var(--cyan-led);">Ask Dee</a> · or call <a href="tel:8324966891" style="color: var(--cyan-led);">832-496-6891</a> and we'll tell you in 30 seconds.</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Frequently asked</div>
+      <h2>Answers, <span style="color:var(--cyan-led); font-style:italic;">straight from dispatch.</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q">Do you patrol communities regularly looking for cars in violation?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Yes. PD Towing of Houston conducts daily patrols throughout Houston and the surrounding areas. We service many communities and remove vehicles that are in violation as part of our standard operating coverage.</div></div>
+      <div class="faq-item"><button class="faq-q">How do I get set up with PD Towing for my property?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Call us at 832-496-6891 or request a free site audit using the form below. One of our team members will meet you on-site to assess your community's parking situation and implement a parking control program tailored to your needs.</div></div>
+      <div class="faq-item"><button class="faq-q">Does PD Towing help maintain the community parking program?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Yes. We take pride in assisting each community as they maintain their parking enforcement program. We bring the operational consistency so the property manager doesn't have to think about it.</div></div>
+      <div class="faq-item"><button class="faq-q">Does PD Towing paint communities or parking lots for FREE?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">No. The TDLR has specific laws and regulations in place that towing company operators must obey. It is illegal for any tow company to paint a community for free. PD Towing operates in strict compliance with the laws of the State of Texas.</div></div>
+      <div class="faq-item"><button class="faq-q">Do you take pictures of every car towed?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Yes. Every vehicle is photographed from multiple angles with auto-imprinted date and time, then stored in our database. We can also set your community up on our email system so all invoices and photos are emailed within minutes of every tow.</div></div>
+      <div class="faq-item"><button class="faq-q">How does a vehicle owner find out if their vehicle has been towed?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Call 832-496-6891. Our number is on every sign posted on the properties we service. We'll tell you immediately where your vehicle is and how to retrieve it.</div></div>
+      <div class="faq-item"><button class="faq-q">How far is the storage facility usually from the property?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">In most cases, we tow to a storage facility within 20 minutes of the property the vehicle was towed from. We only do business with respectful lots that are in full compliance with all applicable state laws.</div></div>
+      <div class="faq-item"><button class="faq-q">Does PD Towing operate 24 hours a day?<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a">Yes. We operate 24 hours a day, 7 days a week, 365 days a year. We are here to take care of every community we serve, all the time.</div></div>
+    </div>
+    <p style="text-align: center; margin-top: 32px; color: var(--text-muted); font-size: 14.5px;">Still have questions? <a href="#" onclick="window.deeChat && window.deeChat.open(); return false;" style="color: var(--cyan-led); border-bottom: 1px dashed var(--cyan-led);">Chat with Dee &mdash; PD's dispatcher.</a></p>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="cta-final" id="contact">
+  <div class="container">
+    <div class="cta-card reveal">
+      <div>
+        <div class="eyebrow">Free site audit</div>
+        <h2 style="font-size: clamp(28px, 3.5vw, 42px); margin-bottom: 12px;">Let us walk your property.<br/><span style="color:var(--cyan-led); font-style:italic;">Find out what's costing you violations.</span></h2>
+        <p style="color: var(--text-muted); font-size: 15.5px; margin-bottom: 18px;">We meet you on-site, walk the lot, photograph the trouble spots, and send back a plain-language audit within 48 hours. No commitment. No pressure. Just a real look at your parking enforcement gap.</p>
+        <p style="color: var(--text-muted); font-size: 14px;"><strong style="color:white;">Or call us right now:</strong> <a href="tel:8324966891" style="color: var(--cyan-led);">832-496-6891</a></p>
+      </div>
+      <form class="cta-form" onsubmit="return handleAudit(event)">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="text" name="property" placeholder="Property name (apartment, mall, HOA)" required />
+        <div class="cta-form-row">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="tel" name="phone" placeholder="Phone" required />
+        </div>
+        <select name="units" required>
+          <option value="">How many parking spaces? (approx)</option>
+          <option>Under 50</option>
+          <option>50–150</option>
+          <option>150–400</option>
+          <option>400+</option>
+          <option>Not sure</option>
+        </select>
+        <button type="submit">Request my free site audit →</button>
+        <div class="cta-success" id="ctaSuccess">Thanks! We'll reach out within one business day to schedule your walkthrough.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="PD Towing of Houston" />
+          <div class="footer-logo-text">PD Towing<small>OF HOUSTON</small></div>
+        </div>
+        <p>The Private Property Specialists.<br/>Family-owned. 15+ years. 24/7/365.</p>
+        <p style="margin-top: 14px; color: var(--cyan-led);"><strong>"Personal Dedication."</strong></p>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:8324966891">832-496-6891</a></li>
+          <li><a href="mailto:info@pdtowingofhouston.com">info@pdtowingofhouston.com</a></li>
+          <li><a href="mailto:PDTowingofHoustonDesk@outlook.com">PDTowingofHoustonDesk@outlook.com</a></li>
+          <li>15201 Mason Rd, Ste 1000 #163<br/>Cypress, TX 77433</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Service Area</h5>
+        <ul>
+          <li>Houston</li><li>Cypress</li><li>Katy</li><li>Tomball</li>
+          <li>The Woodlands</li><li>Sugarland</li><li>Conroe</li><li>Plantersville</li>
+          <li>Willis</li><li>Magnolia</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Private Property Towing</a></li>
+          <li><a href="#services">Lot Striping &amp; Signage</a></li>
+          <li><a href="#services">Storage Coordination</a></li>
+          <li><a href="#portal">Property Manager Portal</a></li>
+          <li><a href="#cases">Lot Striping Cases</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PD Towing of Houston. All rights reserved. TDLR Compliant.</span>
+      <span class="built-by">Mockup by <strong>SANO Solutions</strong> · A Phase 1 Proposal</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ DEE CHAT MOUNT ============ -->
+<div id="dee-chat-root"></div>
+
+<script>
+/* ============================================================
+   DEE — PD Towing of Houston Dispatch Assistant
+   Conversation-tree chatbot, glassmorphic FAB widget.
+   Modeled on the ido-ai-chatbot-module pattern.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  // ====== Knowledge base (loaded from PD intake) ======
+  const PD = {
+    phone: '832-496-6891',
+    phoneLink: 'tel:8324966891',
+    email: 'info@pdtowingofhouston.com',
+    address: '15201 Mason Rd, Ste 1000 #163, Cypress, TX 77433',
+    hours: '24 hours a day, 7 days a week, 365 days a year',
+    serviceArea: ['Houston', 'Cypress', 'Katy', 'Tomball', 'The Woodlands', 'Sugarland', 'Conroe', 'Plantersville', 'Willis', 'Magnolia'],
+    storageFacilities: ['KTL Auto Storage', 'Minetta Auto Storage', 'Off The Hook Auto Storage', 'Conklin Auto Storage', 'Farrell Auto Storage'],
+    yearsInBusiness: 15,
+    tagline: 'The Private Property Specialists'
+  };
+
+  // ====== Conversation tree ======
+  const TREE = {
+    root: {
+      bot: "Hey — I'm Dee, dispatch at PD Towing of Houston. What's going on tonight?",
+      options: [
+        { label: "I think I got towed.", goto: 'towed' },
+        { label: "How do I get my vehicle back?", goto: 'retrieve' },
+        { label: "What are your rates?", goto: 'rates' },
+        { label: "I want to sign up my property.", goto: 'signup' },
+        { label: "What areas do you serve?", goto: 'areas' }
+      ]
+    },
+
+    towed: {
+      bot: "Got it. First — was your vehicle parked on a private property (apartment, strip mall, HOA) with PD Towing signage? If yes, there's a strong chance we have it.",
+      options: [
+        { label: "Yes, there were PD signs.", goto: 'towed_yes' },
+        { label: "I'm not sure where it was parked.", goto: 'towed_unsure' },
+        { label: "I just need to find my car.", goto: 'find_car' }
+      ]
+    },
+    towed_yes: {
+      bot: "Then we likely have it. Give the office a ring at " + PD.phone + " — we'll tell you exactly which of our 5 partner storage lots it went to. We answer 24/7. You'll need photo ID and proof of registration to retrieve.",
+      options: [
+        { label: "Call now.", action: 'call' },
+        { label: "What do I need to bring?", goto: 'retrieve' },
+        { label: "Start over.", goto: 'root' }
+      ]
+    },
+    towed_unsure: {
+      bot: "No problem. Two options: (1) Call us at " + PD.phone + " — give us the make, model, and the property address where you parked, we'll check our log. (2) If we don't have it, call the Houston Police Department towline at 713-308-8580 or Harris County Sheriff's at 713-755-6042.",
+      options: [
+        { label: "Call PD now.", action: 'call' },
+        { label: "I'll try the police line.", goto: 'find_car' },
+        { label: "Start over.", goto: 'root' }
+      ]
+    },
+    find_car: {
+      bot: "If PD didn't tow it, try one of these: Houston Police Dept towline 713-308-8580, Harris County Sheriff's towline 713-755-6042. Most private-property tows in our area come through us or one of those two lines.",
+      options: [
+        { label: "Got it — call PD anyway.", action: 'call' },
+        { label: "Start over.", goto: 'root' }
+      ]
+    },
+
+    retrieve: {
+      bot: "Three things to retrieve a vehicle from one of our partner lots:\n\n1. **Photo ID** (driver's license)\n2. **Proof of vehicle ownership** (title, registration, or insurance)\n3. **Payment** — most lots accept major cards plus cash\n\nYou'll get a printed receipt at retrieval. Want me to send you to the call line?",
+      options: [
+        { label: "Yes, connect me.", action: 'call' },
+        { label: "Which lot do I go to?", goto: 'storage' },
+        { label: "Start over.", goto: 'root' }
+      ]
+    },
+    storage: {
+      bot: "We work with 5 state-licensed storage facilities — KTL, Minetta, Off The Hook, Conklin, Farrell — all within about 20 minutes of the community your vehicle was towed from. Call us at " + PD.phone + " and we'll tell you which specific lot has your vehicle.",
+      options: [
+        { label: "Call now.", action: 'call' },
+        { label: "Start over.", goto: 'root' }
+      ]
+    },
+
+    rates: {
+      bot: "Towing rates are governed by the Texas Department of Licensing & Regulation and vary by vehicle type and circumstance. We can't quote a flat number in chat — it'd be misleading. Our office can confirm rates instantly when you call.",
+      options: [
+        { label: "Got it, call the office.", action: 'call' },
+        { label: "What about for property managers?", goto: 'signup' },
+        { label: "Start over.", goto: 'root' }
+      ]
+    },
+
+    signup: {
+      bot: "Welcome — this is what we love doing. We'll come walk your property, photograph the trouble spots, and send back a plain-language audit within 48 hours. No commitment, no pressure. What kind of property?",
+      options: [
+        { label: "Apartment community", goto: 'signup_form' },
+        { label: "Strip mall / commercial", goto: 'signup_form' },
+        { label: "HOA / townhomes", goto: 'signup_form' },
+        { label: "Something else", goto: 'signup_form' }
+      ]
+    },
+    signup_form: {
+      bot: "Drop your contact info and we'll be in touch within one business day to schedule the walkthrough.",
+      form: ['name', 'property', 'phone', 'email'],
+      onSubmit: 'capture_lead'
+    },
+
+    areas: {
+      bot: "We patrol and tow across 9 cities out of our Cypress base: **Houston, Cypress, Katy, Tomball, The Woodlands, Sugarland, Conroe, Plantersville, Willis & Magnolia.** If your property is in or between any of these, we cover you.",
+      options: [
+        { label: "Sign up my property.", goto: 'signup' },
+        { label: "Call to confirm coverage.", action: 'call' },
+        { label: "Start over.", goto: 'root' }
+      ]
+    }
+  };
+
+  // ====== Capture lead ======
+  function captureLead(data) {
+    data.submittedAt = new Date().toISOString();
+    data.source = 'dee-chat';
+    const leads = JSON.parse(localStorage.getItem('pdt_leads') || '[]');
+    leads.push(data);
+    localStorage.setItem('pdt_leads', JSON.stringify(leads));
+  }
+
+  // ====== Render markdown-light (bold) ======
+  function renderText(s) {
+    return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>');
+  }
+
+  // ====== Build the widget ======
+  function build() {
+    const root = document.getElementById('dee-chat-root');
+    if (!root) return;
+
+    root.innerHTML = `
+      <style>
+        #dee-fab { position: relative; }
+        .dee-fab-btn {
+          width: 64px; height: 64px; border-radius: 50%;
+          background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+          border: 2px solid rgba(125,211,252,0.3);
+          color: white; cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 16px 40px -10px rgba(37,99,235,0.6), 0 0 0 6px rgba(37,99,235,0.08);
+          transition: all 0.3s;
+          position: relative;
+        }
+        .dee-fab-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 24px 50px -10px rgba(37,99,235,0.8); }
+        .dee-fab-btn svg { width: 26px; height: 26px; }
+        .dee-pulse {
+          position: absolute; inset: -6px; border-radius: 50%;
+          border: 2px solid #7dd3fc; opacity: 0;
+          animation: deepulse 2.4s infinite;
+          pointer-events: none;
+        }
+        @keyframes deepulse {
+          0% { transform: scale(0.95); opacity: 0.8; }
+          70% { transform: scale(1.25); opacity: 0; }
+          100% { transform: scale(0.95); opacity: 0; }
+        }
+        .dee-badge {
+          position: absolute; top: -4px; right: -4px;
+          background: #ef4444; color: white;
+          font-size: 11px; font-weight: 700;
+          width: 22px; height: 22px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          border: 2px solid #050a14;
+        }
+        .dee-panel {
+          position: absolute; bottom: 80px; right: 0;
+          width: 380px; max-width: calc(100vw - 32px);
+          height: 540px; max-height: calc(100vh - 120px);
+          background: rgba(10,25,41,0.96);
+          backdrop-filter: blur(28px) saturate(160%);
+          -webkit-backdrop-filter: blur(28px) saturate(160%);
+          border: 1px solid rgba(125,211,252,0.22);
+          border-radius: 20px;
+          display: none; flex-direction: column;
+          box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 60px -20px rgba(37,99,235,0.4);
+          overflow: hidden;
+          font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+          color: #f4f6f8;
+        }
+        .dee-panel.open { display: flex; animation: deeIn 0.3s ease; }
+        @keyframes deeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .dee-head {
+          padding: 18px 20px; display: flex; align-items: center; gap: 12px;
+          background: linear-gradient(135deg, rgba(37,99,235,0.18) 0%, transparent 100%);
+          border-bottom: 1px solid rgba(125,211,252,0.12);
+        }
+        .dee-avatar {
+          width: 44px; height: 44px; border-radius: 50%;
+          background: linear-gradient(135deg, #2563eb, #1e3a8a);
+          display: flex; align-items: center; justify-content: center;
+          color: white; font-weight: 700; font-size: 17px;
+          border: 2px solid rgba(125,211,252,0.35);
+          font-family: 'Fraunces', serif;
+        }
+        .dee-head-text strong { display: block; font-size: 15px; font-weight: 600; }
+        .dee-head-text span { font-size: 11.5px; color: #7dd3fc; display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+        .dee-head-text span::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+        .dee-close {
+          margin-left: auto; padding: 6px;
+          background: none; border: none; color: #94a3b8;
+          cursor: pointer; transition: color 0.2s;
+        }
+        .dee-close:hover { color: white; }
+        .dee-body {
+          flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px;
+          scrollbar-width: thin; scrollbar-color: rgba(125,211,252,0.3) transparent;
+        }
+        .dee-body::-webkit-scrollbar { width: 6px; }
+        .dee-body::-webkit-scrollbar-thumb { background: rgba(125,211,252,0.25); border-radius: 999px; }
+        .dee-msg {
+          padding: 12px 16px; border-radius: 16px;
+          max-width: 88%; font-size: 14.5px; line-height: 1.5;
+          animation: deeMsgIn 0.35s ease;
+        }
+        @keyframes deeMsgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .dee-msg.bot {
+          background: rgba(125,211,252,0.08);
+          border: 1px solid rgba(125,211,252,0.12);
+          align-self: flex-start;
+          border-top-left-radius: 4px;
+        }
+        .dee-msg.bot strong { color: #7dd3fc; font-weight: 600; }
+        .dee-msg.user {
+          background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+          color: white;
+          align-self: flex-end;
+          border-top-right-radius: 4px;
+          font-weight: 500;
+        }
+        .dee-options { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+        .dee-option {
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(125,211,252,0.18);
+          color: #f4f6f8;
+          padding: 11px 14px; border-radius: 12px;
+          text-align: left; cursor: pointer;
+          font-size: 14px; font-family: inherit;
+          transition: all 0.2s;
+        }
+        .dee-option:hover { background: rgba(37,99,235,0.18); border-color: #7dd3fc; transform: translateX(2px); }
+        .dee-form { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; padding: 12px; background: rgba(5,10,20,0.4); border-radius: 12px; border: 1px solid rgba(125,211,252,0.12); }
+        .dee-form input {
+          background: rgba(5,10,20,0.6);
+          border: 1px solid rgba(125,211,252,0.18);
+          color: white; font: inherit; font-size: 13.5px;
+          padding: 10px 12px; border-radius: 8px;
+        }
+        .dee-form input:focus { outline: none; border-color: #7dd3fc; }
+        .dee-form button {
+          background: #2563eb; color: white; border: none;
+          padding: 11px; border-radius: 8px;
+          font: inherit; font-weight: 600; font-size: 14px;
+          cursor: pointer; margin-top: 4px;
+        }
+        .dee-form button:hover { background: #4a90e2; }
+        .dee-typing {
+          display: inline-flex; gap: 4px; padding: 12px 16px;
+          background: rgba(125,211,252,0.08);
+          border-radius: 16px; border-top-left-radius: 4px;
+          align-self: flex-start;
+          border: 1px solid rgba(125,211,252,0.12);
+        }
+        .dee-typing span {
+          width: 7px; height: 7px; border-radius: 50%;
+          background: #7dd3fc; opacity: 0.4;
+          animation: deeBounce 1.2s infinite;
+        }
+        .dee-typing span:nth-child(2) { animation-delay: 0.15s; }
+        .dee-typing span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes deeBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-5px); opacity: 1; } }
+        .dee-foot {
+          padding: 10px 16px; font-size: 11px; color: #64748b; text-align: center;
+          border-top: 1px solid rgba(125,211,252,0.08);
+        }
+        @media (max-width: 540px) {
+          .dee-panel { width: calc(100vw - 24px); height: calc(100vh - 96px); right: -12px; bottom: 76px; }
+        }
+      </style>
+
+      <div id="dee-fab">
+        <button class="dee-fab-btn" aria-label="Chat with Dee" id="deeFabBtn">
+          <span class="dee-pulse"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span class="dee-badge">1</span>
+        </button>
+        <div class="dee-panel" id="deePanel">
+          <div class="dee-head">
+            <div class="dee-avatar">D</div>
+            <div class="dee-head-text">
+              <strong>Dee · PD Dispatch</strong>
+              <span>Online · 24/7/365</span>
+            </div>
+            <button class="dee-close" id="deeCloseBtn" aria-label="Close">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="dee-body" id="deeBody"></div>
+          <div class="dee-foot">⚡ AI-assisted dispatch · Real PD team takes over when needed</div>
+        </div>
+      </div>
+    `;
+
+    const fabBtn = root.querySelector('#deeFabBtn');
+    const closeBtn = root.querySelector('#deeCloseBtn');
+    const panel = root.querySelector('#deePanel');
+    const badge = root.querySelector('.dee-badge');
+    const body = root.querySelector('#deeBody');
+
+    let started = false;
+    function openPanel() {
+      panel.classList.add('open');
+      badge.style.display = 'none';
+      if (!started) { started = true; setTimeout(() => goto('root'), 300); }
+    }
+    function closePanel() { panel.classList.remove('open'); }
+    fabBtn.addEventListener('click', openPanel);
+    closeBtn.addEventListener('click', closePanel);
+
+    // Expose for external triggers
+    window.deeChat = { open: openPanel, close: closePanel };
+
+    function addBotMessage(text, opts) {
+      const typing = document.createElement('div');
+      typing.className = 'dee-typing';
+      typing.innerHTML = '<span></span><span></span><span></span>';
+      body.appendChild(typing);
+      body.scrollTop = body.scrollHeight;
+      setTimeout(() => {
+        typing.remove();
+        const msg = document.createElement('div');
+        msg.className = 'dee-msg bot';
+        msg.innerHTML = renderText(text);
+        body.appendChild(msg);
+        if (opts) body.appendChild(opts);
+        body.scrollTop = body.scrollHeight;
+      }, 700 + Math.min(text.length * 8, 1200));
+    }
+
+    function addUserMessage(text) {
+      const msg = document.createElement('div');
+      msg.className = 'dee-msg user';
+      msg.textContent = text;
+      body.appendChild(msg);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function buildOptions(options) {
+      const wrap = document.createElement('div');
+      wrap.className = 'dee-options';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'dee-option';
+        btn.textContent = opt.label;
+        btn.addEventListener('click', () => {
+          wrap.remove();
+          addUserMessage(opt.label);
+          if (opt.action === 'call') {
+            setTimeout(() => addBotMessage("Tapping to call now → " + PD.phone + ". The line answers 24/7.", buildOptions([{label: 'Start over', goto: 'root'}])), 400);
+            window.location.href = PD.phoneLink;
+            return;
+          }
+          if (opt.goto) setTimeout(() => goto(opt.goto), 350);
+        });
+        wrap.appendChild(btn);
+      });
+      return wrap;
+    }
+
+    function buildForm(fields, onSubmitKey) {
+      const wrap = document.createElement('form');
+      wrap.className = 'dee-form';
+      const labels = { name: 'Your name', property: 'Property name', phone: 'Phone', email: 'Email' };
+      const types = { phone: 'tel', email: 'email' };
+      fields.forEach(f => {
+        const input = document.createElement('input');
+        input.type = types[f] || 'text';
+        input.name = f;
+        input.placeholder = labels[f] || f;
+        input.required = true;
+        wrap.appendChild(input);
+      });
+      const btn = document.createElement('button');
+      btn.type = 'submit';
+      btn.textContent = 'Send to PD →';
+      wrap.appendChild(btn);
+      wrap.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(wrap).entries());
+        if (onSubmitKey === 'capture_lead') captureLead(data);
+        wrap.remove();
+        addUserMessage("[Sent contact info]");
+        setTimeout(() => {
+          addBotMessage("Got it, " + data.name + ". A team member will reach out within one business day to schedule your walkthrough. Thanks for reaching out — talk soon.", buildOptions([{label: 'Anything else?', goto: 'root'}]));
+        }, 400);
+      });
+      return wrap;
+    }
+
+    function goto(key) {
+      const node = TREE[key];
+      if (!node) return;
+      let widget = null;
+      if (node.options) widget = buildOptions(node.options);
+      else if (node.form) widget = buildForm(node.form, node.onSubmit);
+      addBotMessage(node.bot, widget);
+    }
+  }
+
+  // ====== Boot ======
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+})();
+
+</script>
+
+<script>
+// ====== Nav toggle ======
+function toggleNav() { document.getElementById('navMenu').classList.toggle('open'); }
+
+// ====== Scroll reveal ======
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ====== Stat counter ======
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.count, 10);
+    if (!target) return;
+    const dur = 1800; const start = performance.now();
+    const plus = el.querySelector('.plus');
+    const plusHTML = plus ? plus.outerHTML : '';
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.round(target * eased) + plusHTML;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    statObserver.unobserve(el);
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.stat-num[data-count]').forEach(el => statObserver.observe(el));
+
+// ====== FAQ toggle ======
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// ====== Audit form ======
+function handleAudit(e) {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target).entries());
+  data.submittedAt = new Date().toISOString();
+  const leads = JSON.parse(localStorage.getItem('pdt_leads') || '[]');
+  leads.push(data);
+  localStorage.setItem('pdt_leads', JSON.stringify(leads));
+  document.getElementById('ctaSuccess').classList.add('show');
+  e.target.querySelector('button').textContent = '✓ Audit requested';
+  e.target.querySelector('button').disabled = true;
+  return false;
+}
+
+// ====== Close mobile nav on link click ======
+document.querySelectorAll('.nav-menu a').forEach(a => a.addEventListener('click', () => document.getElementById('navMenu').classList.remove('open')));
+</script>
+
+</body>
+</html>

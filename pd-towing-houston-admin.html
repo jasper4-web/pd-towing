@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>PD Towing — Site Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+<style>
+:root {
+  --bg: #050a14; --bg-2: #0a1929; --surface: #0f1828;
+  --surface-2: #182336; --border: rgba(125,211,252,0.14);
+  --pd-blue: #2563eb; --pd-blue-glow: #4a90e2; --cyan: #7dd3fc;
+  --text: #f4f6f8; --text-muted: #94a3b8; --text-dim: #64748b;
+  --success: #22c55e; --warn: #f59e0b; --danger: #ef4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, textarea, select { font: inherit; }
+a { color: var(--cyan); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+/* ============ AURORA BG ============ */
+.aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+.aurora::before, .aurora::after {
+  content: ''; position: absolute; width: 600px; height: 600px;
+  border-radius: 50%; filter: blur(120px);
+}
+.aurora::before { top: -20%; left: -10%; background: rgba(37,99,235,0.18); animation: aurora1 20s ease-in-out infinite; }
+.aurora::after { bottom: -30%; right: -15%; background: rgba(125,211,252,0.12); animation: aurora2 25s ease-in-out infinite; }
+@keyframes aurora1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(60px, 40px); } }
+@keyframes aurora2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-60px, -40px); } }
+
+/* ============ GATE ============ */
+.gate {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px;
+}
+.gate-card {
+  background: rgba(15,24,40,0.92); backdrop-filter: blur(28px);
+  border: 1px solid var(--border); border-radius: 22px;
+  padding: 44px 36px; max-width: 460px; width: 100%;
+  box-shadow: 0 60px 120px -40px rgba(37,99,235,0.4);
+  text-align: center;
+}
+.gate-card .logo-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 24px; }
+.gate-card .logo-row img { height: 48px; }
+.gate-card .logo-row .txt { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; text-align: left; }
+.gate-card .logo-row .txt small { display: block; font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.16em; color: var(--cyan); text-transform: uppercase; margin-top: 3px; }
+.gate-card h1 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.02em; }
+.gate-card p { color: var(--text-muted); font-size: 14.5px; margin-bottom: 24px; }
+.gate-card .lock { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.28); border-radius: 999px; font-size: 11.5px; color: #86efac; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
+.gate-card .lock::before { content: ''; width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); }
+.gate-form { display: flex; flex-direction: column; gap: 12px; }
+.gate-form input {
+  background: rgba(5,10,20,0.6); border: 1px solid var(--border);
+  color: white; padding: 14px 16px; border-radius: 12px; font-size: 14.5px;
+  text-align: center; letter-spacing: 0.08em; font-family: 'JetBrains Mono', monospace;
+}
+.gate-form input:focus { outline: none; border-color: var(--cyan); }
+.gate-form button {
+  background: var(--pd-blue); color: white;
+  padding: 14px; border-radius: 12px; font-weight: 600; font-size: 14.5px;
+  transition: all 0.2s;
+}
+.gate-form button:hover { background: var(--pd-blue-glow); }
+.gate-error { color: #fca5a5; font-size: 13px; padding-top: 4px; min-height: 18px; }
+.gate-hint { margin-top: 20px; padding: 14px; background: rgba(125,211,252,0.06); border: 1px solid var(--border); border-radius: 10px; font-size: 12.5px; color: var(--text-muted); }
+.gate-hint code { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; color: var(--cyan); font-size: 12px; }
+
+/* ============ APP ============ */
+.app { display: none; min-height: 100vh; }
+.app.active { display: grid; grid-template-columns: 256px 1fr; }
+@media (max-width: 880px) { .app.active { grid-template-columns: 1fr; } .sidebar { display: none; } }
+
+.sidebar {
+  background: rgba(15,24,40,0.92); backdrop-filter: blur(24px);
+  border-right: 1px solid var(--border); padding: 24px 18px;
+  display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0;
+}
+.sidebar-logo { display: flex; align-items: center; gap: 12px; padding: 6px 10px 22px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+.sidebar-logo img { height: 36px; }
+.sidebar-logo .name { font-family: 'Fraunces', serif; font-size: 14.5px; font-weight: 600; line-height: 1.1; }
+.sidebar-logo .name small { display: block; font-family: 'Inter', sans-serif; font-size: 9.5px; color: var(--cyan); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; font-weight: 500; }
+.sidebar-section { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); font-weight: 600; padding: 14px 12px 8px; }
+.nav-btn {
+  display: flex; align-items: center; gap: 11px;
+  width: 100%; padding: 10px 12px; border-radius: 9px;
+  font-size: 14px; color: var(--text-muted); font-weight: 500;
+  transition: all 0.18s; text-align: left;
+}
+.nav-btn:hover { background: rgba(125,211,252,0.06); color: var(--text); }
+.nav-btn.active { background: rgba(37,99,235,0.18); color: white; border: 1px solid rgba(37,99,235,0.32); }
+.nav-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+.sidebar-foot { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); }
+.sidebar-foot .live-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.22); border-radius: 9px;
+  font-size: 12.5px; font-weight: 500; color: #86efac;
+}
+.sidebar-foot .live-bar::before { content: ''; width: 7px; height: 7px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: 0.5; } }
+.sidebar-foot .user { display: flex; align-items: center; gap: 10px; padding: 10px 12px; margin-top: 8px; }
+.sidebar-foot .user-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--pd-blue), #1e3a8a); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; }
+.sidebar-foot .user-info strong { display: block; font-size: 13px; font-weight: 600; }
+.sidebar-foot .user-info span { font-size: 11px; color: var(--text-dim); }
+
+/* ============ MAIN ============ */
+main {
+  display: flex; flex-direction: column;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  min-height: 100vh;
+}
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 28px; border-bottom: 1px solid var(--border);
+  background: rgba(10,25,41,0.65); backdrop-filter: blur(20px);
+  position: sticky; top: 0; z-index: 10;
+}
+.topbar h2 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.topbar .crumb { font-size: 12px; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.topbar-actions { display: flex; gap: 10px; align-items: center; }
+.btn-ghost { padding: 10px 16px; border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 13px; font-weight: 500; transition: all 0.2s; }
+.btn-ghost:hover { background: rgba(125,211,252,0.06); border-color: var(--cyan); }
+.btn-primary {
+  padding: 10px 20px; background: var(--pd-blue); color: white; border-radius: 10px;
+  font-size: 13.5px; font-weight: 600; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 8px 24px -8px rgba(37,99,235,0.5);
+}
+.btn-primary:hover { background: var(--pd-blue-glow); }
+.btn-primary[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.tab { padding: 32px 28px; display: none; max-width: 1080px; }
+.tab.active { display: block; animation: tabIn 0.25s ease; }
+@keyframes tabIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+  background: rgba(15,24,40,0.85); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 28px; margin-bottom: 18px;
+}
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.card-head h3 { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+.card-head p { color: var(--text-muted); font-size: 13.5px; }
+
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+.field label {
+  display: block; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--cyan);
+  margin-bottom: 7px;
+}
+.field input, .field textarea {
+  width: 100%; background: rgba(5,10,20,0.6); border: 1px solid var(--border);
+  color: white; padding: 12px 14px; border-radius: 9px;
+  font-size: 14.5px; font-family: inherit; transition: border-color 0.2s;
+  resize: vertical;
+}
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--cyan); background: rgba(5,10,20,0.85); }
+.field textarea { min-height: 80px; line-height: 1.5; }
+.field .hint { margin-top: 6px; font-size: 12px; color: var(--text-dim); }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+
+.item {
+  background: rgba(5,10,20,0.5); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px; margin-bottom: 12px;
+  position: relative;
+}
+.item-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.item-head strong { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; }
+.item-actions { display: flex; gap: 6px; }
+.item-actions button {
+  width: 30px; height: 30px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(125,211,252,0.06); border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.item-actions button:hover { background: rgba(125,211,252,0.18); border-color: var(--cyan); }
+.item-actions .delete:hover { background: rgba(239,68,68,0.18); border-color: var(--danger); color: var(--danger); }
+.item-actions svg { width: 14px; height: 14px; }
+.add-btn {
+  width: 100%; padding: 14px; background: rgba(125,211,252,0.05);
+  border: 1.5px dashed var(--border); border-radius: 12px;
+  color: var(--cyan); font-size: 13px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all 0.2s;
+}
+.add-btn:hover { background: rgba(125,211,252,0.1); border-color: var(--cyan); }
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed; bottom: 32px; right: 32px;
+  background: var(--success); color: white;
+  padding: 14px 22px; border-radius: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 10px; font-size: 14px;
+  box-shadow: 0 20px 50px -10px rgba(34,197,94,0.5);
+  transform: translateY(100px); opacity: 0; transition: all 0.35s;
+  z-index: 100;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast svg { width: 18px; height: 18px; }
+
+/* ============ PUBLISH MODAL ============ */
+.modal-back {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center; z-index: 50; padding: 24px;
+}
+.modal-back.show { display: flex; }
+.modal {
+  background: rgba(15,24,40,0.98); border: 1px solid var(--border);
+  border-radius: 18px; padding: 32px;
+  max-width: 420px; width: 100%; text-align: center;
+}
+.spinner {
+  width: 48px; height: 48px; margin: 0 auto 20px;
+  border: 3px solid rgba(125,211,252,0.15); border-top-color: var(--cyan);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.modal h3 { font-family: 'Fraunces', serif; font-size: 20px; margin-bottom: 6px; }
+.modal p { color: var(--text-muted); font-size: 14px; }
+.modal .check {
+  width: 56px; height: 56px; margin: 0 auto 16px;
+  background: rgba(34,197,94,0.2); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--success);
+}
+.modal .check svg { width: 32px; height: 32px; }
+.modal .changes-list {
+  text-align: left; background: rgba(5,10,20,0.6); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 18px; margin: 18px 0;
+  font-size: 13px; color: var(--text-muted);
+}
+.modal .changes-list li { list-style: none; padding: 4px 0; }
+.modal .changes-list li::before { content: '✓ '; color: var(--success); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="aurora"></div>
+
+<!-- ============ GATE ============ -->
+<div id="gate" class="gate">
+  <div class="gate-card">
+    <div class="logo-row">
+      <img src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="PD Towing logo" />
+      <div class="txt">PD Towing<small>OF HOUSTON</small></div>
+    </div>
+    <div class="lock">Zero-Trust Access</div>
+    <h1>Site Editor</h1>
+    <p>Enter the access token shared in your proposal email.</p>
+    <form class="gate-form" id="gateForm">
+      <input type="text" id="gateInput" placeholder="ACCESS · TOKEN" autocomplete="off" />
+      <button type="submit">Unlock the editor</button>
+      <div class="gate-error" id="gateError">&nbsp;</div>
+    </form>
+    <div class="gate-hint">
+      <strong>For this demo:</strong> use access token <code>demo-pdt-2026</code>, or open this URL directly with <code>?admin=demo-pdt-2026</code>.
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="" />
+      <div class="name">PD Towing<small>SITE EDITOR</small></div>
+    </div>
+    <div class="sidebar-section">Content</div>
+    <button class="nav-btn active" data-tab="hero">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Hero &amp; Headline
+    </button>
+    <button class="nav-btn" data-tab="services">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Services
+    </button>
+    <button class="nav-btn" data-tab="testimonials">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      Testimonials
+    </button>
+    <div class="sidebar-section">Settings</div>
+    <button class="nav-btn" data-tab="contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Contact Info
+    </button>
+    <button class="nav-btn" data-tab="leads">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      Captured Leads
+      <span id="leadBadge" style="margin-left:auto; background: var(--pd-blue); color: white; padding: 2px 7px; border-radius: 999px; font-size: 11px; font-weight: 700; display:none;">0</span>
+    </button>
+    <div class="sidebar-foot">
+      <div class="live-bar">Site Live · Auto-saved 2 min ago</div>
+      <div class="user">
+        <div class="user-avatar">P</div>
+        <div class="user-info">
+          <strong>PD Owner</strong>
+          <span>Admin · Cypress, TX</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div>
+        <div class="crumb" id="crumb">SITE EDITOR</div>
+        <h2 id="topbarTitle">Hero &amp; Headline</h2>
+      </div>
+      <div class="topbar-actions">
+        <a href="pd-towing-houston-frontend.html" target="_blank" class="btn-ghost">
+          ↗ View Live Site
+        </a>
+        <button class="btn-primary" id="publishBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+          Save &amp; Publish
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ HERO TAB ============ -->
+    <div class="tab active" id="tab-hero">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Hero section</h3>
+            <p>The first thing every visitor sees. Edit the headline, sub-headline, and trust strip below.</p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="heroHeadline">Headline</label>
+          <textarea id="heroHeadline" rows="2">The Private Property Specialists.</textarea>
+          <div class="hint">Keep it punchy. The accent word renders in cyan italic.</div>
+        </div>
+        <div class="field">
+          <label for="heroSub">Sub-headline</label>
+          <textarea id="heroSub" rows="3">Houston's most trusted 24/7 parking enforcement and lot striping. 15+ years. Family-owned. Built on Personal Dedication — the principle PD is named after.</textarea>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="heroCta">Primary CTA label</label>
+            <input id="heroCta" value="Request a Free Site Audit" />
+          </div>
+          <div class="field">
+            <label for="heroTrust">Trust strip text</label>
+            <input id="heroTrust" value="TDLR COMPLIANT · 24/7/365 OPERATION" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Stats strip</h3>
+            <p>Four animated counters under the hero.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Years</label>
+            <input id="statYears" value="15" />
+          </div>
+          <div class="field">
+            <label>Cities served</label>
+            <input id="statCities" value="9" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Tows documented (thousands)</label>
+            <input id="statTows" value="50" />
+          </div>
+          <div class="field">
+            <label>Hours / day · days / year</label>
+            <input id="statHours" value="24/7/365" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SERVICES TAB ============ -->
+    <div class="tab" id="tab-services">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Service cards</h3>
+            <p>The three services shown in the Services section. Edit titles, descriptions, and feature bullets.</p>
+          </div>
+        </div>
+        <div id="servicesList"></div>
+        <button class="add-btn" onclick="addService()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add another service
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ TESTIMONIALS TAB ============ -->
+    <div class="tab" id="tab-testimonials">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Testimonial wall</h3>
+            <p>Quotes from property managers. Swap in real ones as you collect them.</p>
+          </div>
+        </div>
+        <div id="testimonialsList"></div>
+        <button class="add-btn" onclick="addTestimonial()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add another testimonial
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ CONTACT TAB ============ -->
+    <div class="tab" id="tab-contact">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Contact information</h3>
+            <p>Updates everywhere the contact info appears on the site (nav, hero CTA, footer, FAQ, chatbot).</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Phone</label>
+            <input id="ctPhone" value="832-496-6891" />
+          </div>
+          <div class="field">
+            <label>Primary email</label>
+            <input id="ctEmail1" value="info@pdtowingofhouston.com" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Dispatch email</label>
+            <input id="ctEmail2" value="PDTowingofHoustonDesk@outlook.com" />
+          </div>
+          <div class="field">
+            <label>Hours</label>
+            <input id="ctHours" value="24/7/365" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Address</label>
+          <input id="ctAddress" value="15201 Mason Rd, Ste 1000 #163, Cypress, TX 77433" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ LEADS TAB ============ -->
+    <div class="tab" id="tab-leads">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Captured leads</h3>
+            <p>Every visitor who submits the audit form or talks to Dee. Lives here, exportable to CRM in Phase 2.</p>
+          </div>
+          <button class="btn-ghost" onclick="exportLeads()">Export CSV</button>
+        </div>
+        <div id="leadsList"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+  <span id="toastMsg">Saved</span>
+</div>
+
+<!-- ============ PUBLISH MODAL ============ -->
+<div class="modal-back" id="modalBack">
+  <div class="modal" id="modalInner">
+    <div class="spinner"></div>
+    <h3>Publishing your changes…</h3>
+    <p>Pushing updates to the live site.</p>
+  </div>
+</div>
+
+<script>
+// ====== SAFETY: token gate ======
+const VALID_TOKEN = 'demo-pdt-2026';
+
+function tryUnlock(token) {
+  if ((token || '').trim().toLowerCase() === VALID_TOKEN) {
+    sessionStorage.setItem('pdt_admin_unlocked', '1');
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').classList.add('active');
+    renderServices();
+    renderTestimonials();
+    renderLeads();
+    return true;
+  }
+  return false;
+}
+
+const params = new URLSearchParams(location.search);
+const urlToken = params.get('admin');
+if (sessionStorage.getItem('pdt_admin_unlocked') === '1' || (urlToken && tryUnlock(urlToken))) {
+  tryUnlock(urlToken || VALID_TOKEN);
+}
+
+document.getElementById('gateForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ok = tryUnlock(document.getElementById('gateInput').value);
+  if (!ok) document.getElementById('gateError').textContent = '✗ Invalid token. Try ' + VALID_TOKEN;
+});
+
+// ====== Tab nav ======
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.getElementById('topbarTitle').textContent = btn.textContent.trim().split('\n')[0];
+    if (tab === 'leads') renderLeads();
+  });
+});
+
+// ====== Services CRUD ======
+let services = JSON.parse(localStorage.getItem('pdt_admin_services') || 'null') || [
+  { title: 'Private Property Towing', desc: '24/7 parking enforcement for apartment communities, strip malls, and commercial properties.', features: 'Daily community patrols\nDigital photo evidence on every tow\nState-licensed storage facilities within 20 minutes\nTDLR-compliant tow tickets' },
+  { title: 'Lot Striping & Signage', desc: 'Restripe, repaint, and resign parking lots to ADA spec.', features: 'ADA-compliant handicap markings\nFire-lane repainting + signage\nCurb & arrow markings\nTow-zone signs installed to code' },
+  { title: 'Storage Coordination', desc: 'Five state-licensed storage partners across Houston.', features: '5 partner storage facilities\nWithin 20 minutes of every community\nCards + cash accepted\nPrinted receipt for every retrieval' }
+];
+
+function renderServices() {
+  const list = document.getElementById('servicesList');
+  list.innerHTML = '';
+  services.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <div class="item-head">
+        <strong>${i + 1}. ${escapeHtml(s.title) || 'Untitled'}</strong>
+        <div class="item-actions">
+          <button class="delete" onclick="deleteService(${i})" aria-label="Delete">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Title</label>
+        <input value="${escapeAttr(s.title)}" oninput="updateService(${i}, 'title', this.value)" />
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea rows="2" oninput="updateService(${i}, 'desc', this.value)">${escapeHtml(s.desc)}</textarea>
+      </div>
+      <div class="field">
+        <label>Feature bullets (one per line)</label>
+        <textarea rows="4" oninput="updateService(${i}, 'features', this.value)">${escapeHtml(s.features)}</textarea>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+function updateService(i, key, value) { services[i][key] = value; }
+function deleteService(i) {
+  if (services.length <= 1) { showToast('At least one service is required', 'warn'); return; }
+  if (!confirm('Delete this service?')) return;
+  services.splice(i, 1); renderServices();
+}
+function addService() {
+  services.push({ title: 'New Service', desc: 'Describe this service in one sentence.', features: 'Feature 1\nFeature 2\nFeature 3' });
+  renderServices();
+}
+
+// ====== Testimonials CRUD ======
+let testimonials = JSON.parse(localStorage.getItem('pdt_admin_testimonials') || 'null') || [
+  { quote: "PD's our tow vendor. They show up before I finish the call. The photo evidence quietly kills most resident complaints before they escalate.", author: '[Property Manager Name]', property: '[Apartment Community · Cypress]' },
+  { quote: 'The lot striping work they did at our strip mall was finished in one day. No mess. ADA-compliant. The board signed off without revision.', author: '[Property Manager Name]', property: '[Strip Mall · Houston Area]' },
+  { quote: "Other tow companies disappeared at midnight. PD answers the phone at 3 AM when a fire lane is blocked. That responsiveness is the whole reason we partner with them.", author: '[HOA Board Member]', property: '[Townhome Community · Sugarland Area]' }
+];
+
+function renderTestimonials() {
+  const list = document.getElementById('testimonialsList');
+  list.innerHTML = '';
+  testimonials.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <div class="item-head">
+        <strong>${i + 1}. ${escapeHtml(t.author || 'Anonymous')}</strong>
+        <div class="item-actions">
+          <button class="delete" onclick="deleteTestimonial(${i})" aria-label="Delete">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Quote</label>
+        <textarea rows="3" oninput="updateTestimonial(${i}, 'quote', this.value)">${escapeHtml(t.quote)}</textarea>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Author</label>
+          <input value="${escapeAttr(t.author)}" oninput="updateTestimonial(${i}, 'author', this.value)" />
+        </div>
+        <div class="field">
+          <label>Property / Role</label>
+          <input value="${escapeAttr(t.property)}" oninput="updateTestimonial(${i}, 'property', this.value)" />
+        </div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+function updateTestimonial(i, key, value) { testimonials[i][key] = value; }
+function deleteTestimonial(i) {
+  if (testimonials.length <= 1) { showToast('At least one testimonial is required', 'warn'); return; }
+  if (!confirm('Delete this testimonial?')) return;
+  testimonials.splice(i, 1); renderTestimonials();
+}
+function addTestimonial() {
+  testimonials.push({ quote: 'Add their words here.', author: 'Manager Name', property: 'Property · City' });
+  renderTestimonials();
+}
+
+// ====== Leads ======
+function renderLeads() {
+  const leads = JSON.parse(localStorage.getItem('pdt_leads') || '[]');
+  const list = document.getElementById('leadsList');
+  const badge = document.getElementById('leadBadge');
+  if (leads.length === 0) {
+    list.innerHTML = `<div style="text-align:center; padding: 60px 20px; color: var(--text-dim);"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:14px; opacity:0.4;"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg><br/>No leads captured yet.<br/><span style="font-size:13px;">Submit the audit form on the live site to see one here.</span></div>`;
+    badge.style.display = 'none';
+    return;
+  }
+  badge.style.display = 'inline';
+  badge.textContent = leads.length;
+  list.innerHTML = leads.reverse().map((lead, i) => `
+    <div class="item">
+      <div class="item-head">
+        <strong>${escapeHtml(lead.name || 'Anonymous')} · ${escapeHtml(lead.property || lead.source || '—')}</strong>
+        <span style="font-size:12px; color: var(--text-dim);">${formatDate(lead.submittedAt)}</span>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13.5px;">
+        <div><span style="color:var(--text-dim);">Phone:</span> <a href="tel:${escapeAttr(lead.phone)}">${escapeHtml(lead.phone || '—')}</a></div>
+        <div><span style="color:var(--text-dim);">Email:</span> <a href="mailto:${escapeAttr(lead.email)}">${escapeHtml(lead.email || '—')}</a></div>
+        ${lead.units ? `<div><span style="color:var(--text-dim);">Size:</span> ${escapeHtml(lead.units)} spaces</div>` : ''}
+        <div><span style="color:var(--text-dim);">Source:</span> ${escapeHtml(lead.source || 'Site form')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+function exportLeads() {
+  const leads = JSON.parse(localStorage.getItem('pdt_leads') || '[]');
+  if (!leads.length) { showToast('No leads to export', 'warn'); return; }
+  const headers = ['Name', 'Property', 'Phone', 'Email', 'Units', 'Source', 'Submitted'];
+  const rows = leads.map(l => [l.name, l.property, l.phone, l.email, l.units, l.source || 'Site form', l.submittedAt].map(v => `"${(v || '').toString().replace(/"/g, '""')}"`).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pd-towing-leads-' + new Date().toISOString().slice(0, 10) + '.csv';
+  a.click();
+  showToast('Exported ' + leads.length + ' leads');
+}
+
+// ====== Publish ======
+document.getElementById('publishBtn').addEventListener('click', () => {
+  // Save
+  localStorage.setItem('pdt_admin_hero', JSON.stringify({
+    headline: document.getElementById('heroHeadline').value,
+    sub: document.getElementById('heroSub').value,
+    cta: document.getElementById('heroCta').value,
+    trust: document.getElementById('heroTrust').value
+  }));
+  localStorage.setItem('pdt_admin_stats', JSON.stringify({
+    years: document.getElementById('statYears').value,
+    cities: document.getElementById('statCities').value,
+    tows: document.getElementById('statTows').value,
+    hours: document.getElementById('statHours').value
+  }));
+  localStorage.setItem('pdt_admin_services', JSON.stringify(services));
+  localStorage.setItem('pdt_admin_testimonials', JSON.stringify(testimonials));
+  localStorage.setItem('pdt_admin_contact', JSON.stringify({
+    phone: document.getElementById('ctPhone').value,
+    email1: document.getElementById('ctEmail1').value,
+    email2: document.getElementById('ctEmail2').value,
+    hours: document.getElementById('ctHours').value,
+    address: document.getElementById('ctAddress').value
+  }));
+
+  const modal = document.getElementById('modalBack');
+  const inner = document.getElementById('modalInner');
+  modal.classList.add('show');
+  inner.innerHTML = '<div class="spinner"></div><h3>Publishing your changes…</h3><p>Pushing updates to the live site.</p>';
+
+  setTimeout(() => {
+    inner.innerHTML = `
+      <div class="check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg>
+      </div>
+      <h3>Published.</h3>
+      <p>Your site is updated. Changes are live now.</p>
+      <ul class="changes-list">
+        <li>Hero headline + sub</li>
+        <li>${services.length} services</li>
+        <li>${testimonials.length} testimonials</li>
+        <li>Contact information</li>
+      </ul>
+      <button class="btn-primary" style="width:100%; justify-content:center;" onclick="document.getElementById('modalBack').classList.remove('show')">Got it</button>
+    `;
+  }, 1700);
+});
+
+// ====== Toast ======
+function showToast(msg, kind) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.style.background = kind === 'warn' ? 'var(--warn)' : 'var(--success)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ====== Helpers ======
+function escapeHtml(s) { return (s == null ? '' : String(s)).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+function escapeAttr(s) { return escapeHtml(s); }
+function formatDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = (now - d) / 1000;
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff / 60) + ' min ago';
+  if (diff < 86400) return Math.floor(diff / 3600) + ' hr ago';
+  return d.toLocaleDateString();
+}
+</script>
+
+</body>
+</html>

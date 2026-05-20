@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>A Custom Rebuild Proposal · PD Towing of Houston</title>
+<meta name="description" content="A custom website rebuild proposal for PD Towing of Houston, from SANO Solutions." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" />
+<style>
+:root {
+  --bg: #050a14;
+  --bg-2: #0a1929;
+  --surface: rgba(15,24,40,0.85);
+  --border: rgba(125,211,252,0.16);
+  --pd-blue: #2563eb;
+  --pd-blue-glow: #4a90e2;
+  --cyan: #7dd3fc;
+  --text: #f4f6f8;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --gold: #f59e0b;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --max-w: 1100px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.015em; line-height: 1.1; }
+
+/* ============ BG ============ */
+.bg-skyline { position: fixed; inset: 0; z-index: -2; background: var(--bg); }
+.bg-layer {
+  position: fixed; inset: 0; z-index: -2;
+  background-size: cover; background-position: center;
+  opacity: 0; animation: bgFade 80s infinite;
+}
+.bg-1 { background-image: url('https://images.pexels.com/photos/18441153/pexels-photo-18441153.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 0s; }
+.bg-2 { background-image: url('https://images.pexels.com/photos/18462226/pexels-photo-18462226.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 20s; }
+.bg-3 { background-image: url('https://images.pexels.com/photos/17995530/pexels-photo-17995530.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 40s; }
+.bg-4 { background-image: url('https://images.pexels.com/photos/10769615/pexels-photo-10769615.jpeg?auto=compress&cs=tinysrgb&w=1920'); animation-delay: 60s; }
+@keyframes bgFade {
+  0%, 25% { opacity: 0; }
+  6%, 21% { opacity: 0.22; }
+  31%, 100% { opacity: 0; }
+}
+.bg-overlay {
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse at top, rgba(10,25,41,0.4) 0%, rgba(5,10,20,0.92) 70%),
+    linear-gradient(180deg, rgba(5,10,20,0.6), rgba(5,10,20,0.95));
+  pointer-events: none;
+}
+
+/* ============ LAYOUT ============ */
+.container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.section { padding: 100px 0; position: relative; }
+@media (max-width: 720px) { .section { padding: 64px 0; } }
+.eyebrow {
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cyan); margin-bottom: 18px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--cyan); }
+
+/* ============ COVER ============ */
+.cover {
+  min-height: 100vh; display: flex; align-items: center; padding: 60px 0;
+  position: relative;
+}
+.cover-inner { text-align: center; }
+.cover-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 18px; border-radius: 999px;
+  background: rgba(37,99,235,0.12); border: 1px solid rgba(37,99,235,0.32);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+  color: var(--cyan); margin-bottom: 32px;
+}
+.cover-badge::before { content: ''; width: 7px; height: 7px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); animation: pulse 1.8s infinite; }
+@keyframes pulse { 50% { opacity: 0.5; } }
+.cover img.logo { height: 90px; margin: 0 auto 36px; filter: drop-shadow(0 10px 30px rgba(37,99,235,0.45)); }
+.cover h1 {
+  font-size: clamp(40px, 6.5vw, 84px); font-weight: 700;
+  margin-bottom: 26px; letter-spacing: -0.025em;
+}
+.cover h1 em { font-style: italic; color: var(--cyan); font-weight: 500; display: block; }
+.cover-sub {
+  font-size: clamp(17px, 1.6vw, 21px);
+  color: var(--text-muted); max-width: 720px; margin: 0 auto 48px;
+  line-height: 1.5;
+}
+.cover-by {
+  display: inline-block; padding-top: 32px; margin-top: 32px;
+  border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--text-dim);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.cover-by strong { color: var(--cyan); font-weight: 600; }
+.cover-arrow {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  color: var(--cyan); animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+/* ============ AUDIT ============ */
+.audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 48px; }
+@media (max-width: 720px) { .audit-grid { grid-template-columns: 1fr; } }
+.audit-item {
+  background: var(--surface); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px 26px;
+  display: flex; gap: 18px; align-items: flex-start;
+  transition: all 0.3s;
+}
+.audit-item:hover { border-color: rgba(239,68,68,0.4); transform: translateX(2px); }
+.audit-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.audit-icon svg { width: 22px; height: 22px; stroke: #fca5a5; }
+.audit-item h4 { font-size: 16px; margin-bottom: 5px; }
+.audit-item p { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
+.audit-summary {
+  margin-top: 32px;
+  padding: 26px 30px;
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.22);
+  border-radius: 16px;
+  text-align: center;
+}
+.audit-summary strong { color: #fca5a5; font-family: var(--font-display); font-size: 24px; }
+.audit-summary p { color: var(--text-muted); margin-top: 8px; font-size: 15px; }
+
+/* ============ BEFORE/AFTER ============ */
+.compare {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 880px) { .compare { grid-template-columns: 1fr; } }
+.compare-side h3 {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.compare-side.before h3 { color: #fca5a5; }
+.compare-side.before h3::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--danger); }
+.compare-side.after h3 { color: #86efac; }
+.compare-side.after h3::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+.frame {
+  background: #1a1a1a; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+  border: 1px solid var(--border);
+}
+.frame-chrome {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px; background: #0d0d0d;
+  border-bottom: 1px solid #222;
+}
+.frame-chrome span { width: 11px; height: 11px; border-radius: 50%; }
+.frame-chrome .r { background: #ef4444; }
+.frame-chrome .y { background: #f59e0b; }
+.frame-chrome .g { background: #22c55e; }
+.frame-chrome .url {
+  margin-left: 10px; padding: 5px 10px; background: #1a1a1a;
+  border-radius: 6px; font-family: 'SF Mono', monospace; font-size: 11px;
+  color: #888; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.frame-body { height: 480px; background: white; position: relative; overflow: hidden; }
+.frame-body iframe { width: 100%; height: 100%; border: none; }
+.frame-tap {
+  position: absolute; bottom: 16px; right: 16px;
+  background: rgba(0,0,0,0.7); color: white; padding: 6px 12px;
+  border-radius: 999px; font-size: 11.5px; font-weight: 600;
+  backdrop-filter: blur(8px); pointer-events: none;
+}
+
+/* The "before" hand-styled Joomla 2012 mockup */
+.before-mock {
+  background: #000; color: white; height: 100%; overflow-y: auto;
+  font-family: Arial, sans-serif;
+}
+.before-mock .head {
+  background: linear-gradient(90deg, #1a0033, #4a0080, #1a0033);
+  padding: 14px; display: flex; justify-content: space-between; align-items: center;
+}
+.before-mock .head img { height: 44px; filter: invert(0); }
+.before-mock .head .sky-strip {
+  height: 60px; width: 240px; background: url('https://images.pexels.com/photos/17995530/pexels-photo-17995530.jpeg?auto=compress&cs=tinysrgb&w=1920') center / cover;
+  border: 1px solid #6b3aa0; opacity: 0.7;
+}
+.before-mock .nav {
+  background: #000; padding: 10px;
+  display: flex; gap: 16px; font-size: 11px; color: #aaa;
+  border-bottom: 1px solid #333;
+}
+.before-mock .nav a { color: #c00; }
+.before-mock .body { padding: 20px; }
+.before-mock h2 { color: white; font-size: 18px; margin-bottom: 16px; font-family: Arial, sans-serif; font-weight: 700; }
+.before-mock .toolbar {
+  display: flex; gap: 8px; padding: 8px 12px;
+  background: #222; border: 1px solid #444;
+  font-size: 10px; color: #888; margin-bottom: 16px;
+}
+.before-mock p { font-size: 12px; color: #ccc; line-height: 1.4; margin-bottom: 10px; }
+.before-mock .truck { background: #1a1a1a; border: 1px solid #333; padding: 10px; margin: 10px 0; font-size: 11px; color: #888; text-align: center; }
+.before-mock .truck img { width: 100%; height: 100px; object-fit: cover; opacity: 0.8; }
+.before-mock .qr { width: 80px; height: 80px; background: white; margin: 10px auto; display: flex; align-items: center; justify-content: center; font-size: 9px; color: black; }
+.before-mock .footer { background: #111; padding: 10px; font-size: 10px; color: #555; text-align: center; border-top: 1px solid #333; }
+
+.compare-note {
+  margin-top: 32px;
+  padding: 20px 26px;
+  background: rgba(34,197,94,0.06);
+  border: 1px solid rgba(34,197,94,0.22);
+  border-radius: 14px;
+  display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center;
+}
+@media (max-width: 640px) { .compare-note { grid-template-columns: 1fr; } }
+.compare-note p { color: #86efac; font-size: 14.5px; font-weight: 500; }
+.compare-note .open-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 18px; background: var(--pd-blue); color: white;
+  border-radius: 999px; font-weight: 600; font-size: 13.5px;
+  transition: all 0.2s; box-shadow: 0 12px 32px -8px rgba(37,99,235,0.5);
+}
+.compare-note .open-btn:hover { background: var(--pd-blue-glow); transform: translateY(-1px); }
+
+/* ============ HIGHLIGHTS ============ */
+.highlight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 48px; }
+@media (max-width: 880px) { .highlight-grid { grid-template-columns: 1fr; } }
+.highlight {
+  background: var(--surface); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 18px;
+  padding: 32px;
+  transition: all 0.35s;
+}
+.highlight:hover { transform: translateY(-4px); border-color: rgba(125,211,252,0.32); }
+.highlight .num { font-family: var(--font-display); font-size: 38px; color: var(--cyan); font-weight: 700; line-height: 1; }
+.highlight h3 { margin-top: 14px; margin-bottom: 10px; font-size: 22px; }
+.highlight p { color: var(--text-muted); font-size: 15px; }
+.highlight .photo {
+  margin-top: 18px; height: 180px; border-radius: 12px; overflow: hidden;
+  background: var(--bg-2); border: 1px solid var(--border);
+}
+.highlight .photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============ INCLUDED ============ */
+.included {
+  background: var(--surface); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 18px;
+  padding: 40px;
+  margin-top: 48px;
+}
+.included-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px;
+}
+@media (max-width: 720px) { .included-grid { grid-template-columns: 1fr; } }
+.included-grid li {
+  list-style: none; padding: 9px 0;
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 15px; color: var(--text);
+  border-bottom: 1px dashed rgba(125,211,252,0.08);
+}
+.included-grid li svg { flex-shrink: 0; width: 18px; height: 18px; stroke: var(--success); margin-top: 3px; }
+
+/* ============ INVESTMENT ============ */
+.invest {
+  background: linear-gradient(135deg, rgba(37,99,235,0.16) 0%, rgba(10,25,41,0.92) 100%);
+  border: 1.5px solid rgba(125,211,252,0.3);
+  border-radius: 22px;
+  padding: 48px;
+  margin-top: 32px;
+  backdrop-filter: blur(28px);
+  box-shadow: 0 60px 120px -30px rgba(37,99,235,0.4);
+}
+@media (max-width: 720px) { .invest { padding: 32px 24px; } }
+.invest-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+@media (max-width: 880px) { .invest-row { grid-template-columns: 1fr; } }
+.invest .badge {
+  display: inline-block; padding: 5px 13px; background: var(--pd-blue);
+  color: white; border-radius: 999px; font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px;
+}
+.invest h3 { font-size: 28px; margin-bottom: 8px; }
+.invest .tagline { color: var(--cyan); font-style: italic; font-size: 15px; margin-bottom: 24px; font-family: var(--font-display); }
+.invest .price { font-family: var(--font-display); font-size: 64px; font-weight: 700; color: white; line-height: 1; letter-spacing: -0.03em; }
+.invest .price span { font-size: 20px; color: var(--text-muted); font-weight: 500; }
+.invest .setup { font-size: 14px; color: var(--text-muted); margin-top: 8px; margin-bottom: 24px; }
+.invest .timeline {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 16px; background: rgba(125,211,252,0.06); border: 1px solid var(--border);
+  border-radius: 999px; font-size: 13px; color: var(--cyan); font-weight: 500;
+  margin-bottom: 22px;
+}
+.invest .timeline svg { width: 14px; height: 14px; }
+.invest ul { list-style: none; }
+.invest ul li {
+  font-size: 14.5px; padding: 7px 0;
+  display: flex; align-items: flex-start; gap: 11px;
+}
+.invest ul li svg { flex-shrink: 0; width: 16px; height: 16px; stroke: var(--success); margin-top: 3px; }
+.invest-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 30px; padding: 16px 28px;
+  background: var(--pd-blue); color: white;
+  border-radius: 999px; font-size: 15px; font-weight: 600;
+  transition: all 0.25s; box-shadow: 0 16px 40px -8px rgba(37,99,235,0.6);
+}
+.invest-cta:hover { background: var(--pd-blue-glow); transform: translateY(-2px); }
+.tier-row {
+  display: flex; gap: 12px; margin-top: 32px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.tier-mini {
+  padding: 14px 20px; background: rgba(5,10,20,0.5); border: 1px solid var(--border);
+  border-radius: 12px; font-size: 13px; flex: 1; min-width: 200px;
+}
+.tier-mini strong { display: block; font-family: var(--font-display); font-size: 16px; margin-bottom: 4px; }
+.tier-mini span { color: var(--text-dim); font-size: 12px; }
+.tier-mini .price-mini { display: block; color: white; margin-top: 8px; font-size: 14px; }
+.tier-mini .price-mini b { color: var(--cyan); font-weight: 600; }
+
+/* ============ NEXT STEP / CLOSE ============ */
+.close-card {
+  background: var(--surface); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: 22px;
+  padding: 48px;
+  margin-top: 40px;
+}
+@media (max-width: 720px) { .close-card { padding: 32px 24px; } }
+.close-card h3 { font-size: 26px; margin-bottom: 14px; }
+.close-card p { color: var(--text-muted); font-size: 16px; line-height: 1.65; }
+.close-card .signature {
+  margin-top: 32px; padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.signature-row { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+.signature-row .sano-mark {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--pd-blue), #1e3a8a);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 22px; color: white;
+  border: 1.5px solid rgba(125,211,252,0.3);
+}
+.signature-row strong { display: block; font-family: var(--font-display); font-size: 19px; font-weight: 600; }
+.signature-row span { font-size: 13px; color: var(--text-muted); }
+.signature-row span a { color: var(--cyan); border-bottom: 1px dashed var(--cyan); }
+.signature .from-the-owner {
+  margin-top: 18px; padding: 22px 24px; background: rgba(125,211,252,0.04);
+  border-left: 3px solid var(--cyan); border-radius: 8px;
+  font-style: italic; color: var(--text); font-size: 15.5px; line-height: 1.7;
+}
+.signature .from-the-owner strong { color: var(--cyan); font-style: normal; }
+
+/* ============ STICKY FOOTER CTA ============ */
+.sticky-footer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+  background: rgba(5,10,20,0.92); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  transform: translateY(110%); transition: transform 0.4s;
+}
+.sticky-footer.show { transform: translateY(0); }
+.sticky-footer .what { font-size: 13px; color: var(--text-muted); }
+.sticky-footer .what strong { color: white; font-family: var(--font-display); font-size: 15px; display: block; }
+.sticky-footer .buttons { display: flex; gap: 10px; flex-shrink: 0; }
+.sticky-footer .yes-btn {
+  padding: 11px 22px; background: var(--success); color: white;
+  border-radius: 999px; font-weight: 600; font-size: 14px;
+  transition: all 0.2s; box-shadow: 0 8px 24px -6px rgba(34,197,94,0.5);
+}
+.sticky-footer .yes-btn:hover { background: #16a34a; }
+.sticky-footer .call-btn {
+  padding: 11px 18px; background: rgba(255,255,255,0.08); color: white;
+  border: 1px solid var(--border); border-radius: 999px;
+  font-weight: 500; font-size: 14px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+@media (max-width: 540px) {
+  .sticky-footer { flex-direction: column; padding: 12px; gap: 8px; }
+  .sticky-footer .what { text-align: center; }
+  .sticky-footer .yes-btn { width: 100%; text-align: center; justify-content: center; }
+}
+
+/* ============ REVEAL ============ */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ============ PRINT ============ */
+@media print { .bg-skyline, .bg-overlay, .sticky-footer { display: none; } body { background: white; color: black; } }
+</style>
+</head>
+<body>
+
+<!-- ============ BG ============ -->
+<div class="bg-skyline">
+  <div class="bg-layer bg-1"></div>
+  <div class="bg-layer bg-2"></div>
+  <div class="bg-layer bg-3"></div>
+  <div class="bg-layer bg-4"></div>
+</div>
+<div class="bg-overlay"></div>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="container cover-inner">
+    <div class="cover-badge">A CUSTOM PROPOSAL · PREPARED FOR PD TOWING OF HOUSTON</div>
+    <img src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="PD Towing of Houston" class="logo" />
+    <h1>The site you've earned.<em>Built around your fleet.</em></h1>
+    <p class="cover-sub">A complete rebuild of <strong style="color:white;">pdtowingofhouston.com</strong> — modern, mobile-first, conversion-focused, and built around the trucks, crew, and 15-year story you already have. This proposal includes a working mock you can tap through on your phone, an audit of the current site, and what it would take to make this live.</p>
+    <a href="#audit" class="cover-by">PREPARED BY <strong>SANO SOLUTIONS</strong> · MAY 2026 — SCROLL TO REVIEW</a>
+    <div class="cover-arrow">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUDIT ============ -->
+<section class="section" id="audit">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">What we noticed</div>
+      <h2 style="font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 18px;">Your current site is <em style="color:#fca5a5; font-style:italic;">working against you.</em></h2>
+      <p style="color: var(--text-muted); font-size: 17px; max-width: 720px;">We audited <strong style="color:white;">pdtowingofhouston.com</strong> from a property manager's perspective. Seven things stood out — none of them are the fault of your operation, all of them are fixable.</p>
+    </div>
+    <div class="audit-grid">
+      <div class="audit-item reveal">
+        <div class="audit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+        <div>
+          <h4>The phone number isn't tappable</h4>
+          <p>On a phone, a property manager has to copy your number by hand to call you. For a 24/7 emergency business, that's the #1 conversion crime.</p>
+        </div>
+      </div>
+      <div class="audit-item reveal">
+        <div class="audit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg></div>
+        <div>
+          <h4>Looks like it was built in 2012</h4>
+          <p>The Joomla template literally hasn't been updated since the copyright notice — 2012. Property managers see that footer and assume you've gone out of business.</p>
+        </div>
+      </div>
+      <div class="audit-item reveal">
+        <div class="audit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+        <div>
+          <h4>No social proof</h4>
+          <p>Fifteen years of work and not a single review, testimonial, or property logo on the site. To a manager comparing tow vendors, that reads as "no one's vouched for them."</p>
+        </div>
+      </div>
+      <div class="audit-item reveal">
+        <div class="audit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div>
+          <h4>No mobile design</h4>
+          <p>The site renders at desktop width on a phone. Property managers (who live on their phones) have to pinch-zoom to read it. Most leave instead.</p>
+        </div>
+      </div>
+      <div class="audit-item reveal">
+        <div class="audit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div>
+          <h4>Your email is hidden</h4>
+          <p>Both emails are blocked behind "JavaScript anti-spam" — fine in 2012, but today every property manager browses with privacy tools that strip that out. They never see your email.</p>
+        </div>
+      </div>
+      <div class="audit-item reveal">
+        <div class="audit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+        <div>
+          <h4>No CTA — anywhere</h4>
+          <p>No "Request a site audit." No "Get a quote." No way for a property manager to express interest. The funnel ends at static contact info.</p>
+        </div>
+      </div>
+      <div class="audit-item reveal" style="grid-column: 1 / -1;">
+        <div class="audit-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <div>
+          <h4>The value you're already delivering is invisible</h4>
+          <p>You photograph every tow. You notify the police line in real time. You email invoices with photos within minutes. You're TDLR-compliant. That's a B2B-grade operation — but nowhere on the site does a property manager see a hint of it. The site is hiding the best part of what PD does.</p>
+        </div>
+      </div>
+    </div>
+    <div class="audit-summary reveal">
+      <strong>Current site grade: 2 out of 10</strong>
+      <p>The operation is 9 out of 10. The website is the bottleneck.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Before · After</div>
+      <h2 style="font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 18px;">The gap is <em style="color:var(--cyan); font-style:italic;">obvious.</em></h2>
+      <p style="color: var(--text-muted); font-size: 17px; max-width: 720px;">Side-by-side comparison. The right side is a working mock — tap into the iframe to scroll the actual site.</p>
+    </div>
+    <div class="compare">
+      <div class="compare-side before reveal">
+        <h3>Current site · pdtowingofhouston.com</h3>
+        <div class="frame">
+          <div class="frame-chrome">
+            <span class="r"></span><span class="y"></span><span class="g"></span>
+            <span class="url">pdtowingofhouston.com</span>
+          </div>
+          <div class="frame-body">
+            <div class="before-mock">
+              <div class="head">
+                <img src="https://pdtowingofhouston.com/images/new_logo_tow.png" alt="PD logo" />
+                <div class="sky-strip"></div>
+              </div>
+              <div class="nav">
+                <a>Home</a><a style="color:#aaa;">About Us</a><a style="color:#aaa;">Our Fleet</a><a style="color:#aaa;">Tow Services</a><a style="color:#aaa;">FAQ</a><a style="color:#aaa;">Contact</a>
+              </div>
+              <div class="body">
+                <h2>Welcome To PD Towing of Houston</h2>
+                <div class="toolbar">⊞ Print · ✉ Email · ⊕ Share</div>
+                <p>We at PD Towing Of Houston take exceptional pride in what we do. Our philosophy of personal dedication means excellence in customer service. This is why we are known as "The Private Property Specialists"</p>
+                <div class="truck">
+                  <img src="https://pdtowingofhouston.com/images/h1.jpg" alt="" />
+                  <span style="color:#666;">photo</span>
+                </div>
+                <p>Many communities experience parking problems. We can assist you with: Blocked fire lanes, Parking on the sidewalk or lawn areas, Blocked dumpsters...</p>
+                <div class="qr">QR code</div>
+                <p style="color:#888; font-size:10px;">Scan Us In Your Smart Phone</p>
+              </div>
+              <div class="footer">Copyright 2012 PD Towing of Houston · Site Created By Bushveld Media</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="compare-side after reveal">
+        <h3>The new site · live mock</h3>
+        <div class="frame">
+          <div class="frame-chrome">
+            <span class="r"></span><span class="y"></span><span class="g"></span>
+            <span class="url">pdtowingofhouston.com · NEW</span>
+          </div>
+          <div class="frame-body">
+            <iframe src="pd-towing-houston-frontend.html" title="PD Towing — new site mock"></iframe>
+            <div class="frame-tap">↓ scroll inside</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="compare-note reveal">
+      <p>Want the full screen? Open the live mock in a new tab and explore from your phone.</p>
+      <a href="pd-towing-houston-frontend.html" target="_blank" class="open-btn">
+        Open the live mock ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT WE BUILT ============ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Five things in the mock you can tap right now</div>
+      <h2 style="font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 18px;">What's <em style="color:var(--cyan); font-style:italic;">already working.</em></h2>
+    </div>
+    <div class="highlight-grid">
+      <div class="highlight reveal">
+        <div class="num">01</div>
+        <h3>Houston skyline as the canvas</h3>
+        <p>Five cinematic Houston skyline shots fade through the background — dawn, day, dusk, night. Ties PD to the city without ever shouting "Houston." All royalty-free.</p>
+        <div class="photo"><img src="https://images.pexels.com/photos/18462226/pexels-photo-18462226.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="" /></div>
+      </div>
+      <div class="highlight reveal">
+        <div class="num">02</div>
+        <h3>Your real fleet, finally in frame</h3>
+        <p>The five-truck-with-crew photo, the four black F-450s at the Cypress shop, the night-shift LED-glow shot — all in the new site, full-resolution, hero-treatment. No more buried behind 2012 sliders.</p>
+        <div class="photo"><img src="https://pdtowingofhouston.com/images/h2.jpg" alt="" /></div>
+      </div>
+      <div class="highlight reveal">
+        <div class="num">03</div>
+        <h3>Property-manager portal preview</h3>
+        <p>A mockup of the dashboard your property-manager clients would log into: live tow log, photo evidence, downloadable invoices. The single biggest reason a manager picks PD over a competitor — finally visible on the site.</p>
+        <div class="photo" style="display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(37,99,235,0.18), rgba(10,25,41,0.92));"><span style="color:var(--cyan); font-family:var(--font-display); font-size:22px;">portal.pdtowing · LIVE</span></div>
+      </div>
+      <div class="highlight reveal">
+        <div class="num">04</div>
+        <h3>Dee — your AI dispatcher</h3>
+        <p>Bottom-right of every page. Property managers ask "what are your rates" or "how do I sign up my property" — Dee captures the lead in your voice, 24/7. Open the mock and tap the blue button.</p>
+        <div class="photo" style="display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(37,99,235,0.35), rgba(10,25,41,0.92));"><div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, var(--pd-blue), #1e3a8a); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:36px; font-weight:700; color:white; border: 3px solid rgba(125,211,252,0.4);">D</div></div>
+      </div>
+      <div class="highlight reveal" style="grid-column: 1 / -1;">
+        <div class="num">05</div>
+        <h3>An editor you can actually use</h3>
+        <p>One link, no developer needed. Tap a headline, change it, hit publish. Edit your services, swap testimonials in, update phone numbers — your site updates instantly. This is what owning your own site should feel like in 2026.</p>
+        <div class="photo" style="height:240px;"><a href="pd-towing-houston-frontend.html" target="_blank" style="display:flex; align-items:center; justify-content:center; height:100%; background:linear-gradient(135deg, rgba(37,99,235,0.25), rgba(10,25,41,0.95)); color: var(--cyan); font-family:var(--font-display); font-size:20px; gap:12px;">↗ Open the editor demo<small style="display:block; font-size:13px; color:var(--text-muted); margin-top:4px;">Token already loaded · just open</small></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INCLUDED ============ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">What you get</div>
+      <h2 style="font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 18px;">Everything you saw — <em style="color:var(--cyan); font-style:italic;">delivered in 14 days.</em></h2>
+    </div>
+    <div class="included reveal">
+      <ul class="included-grid">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Custom rebuilt website — the full mock you just saw, live on your own domain (cutover from the existing Joomla site included)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Mobile-first responsive design</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Tap-to-call + tap-to-email everywhere</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Dee — the AI chatbot, embedded on every page, 24/7 lead capture</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Visual editor — change content yourself, no developer required</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Free site audit lead form — every submission delivered to your inbox</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Property-manager portal preview section</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Service-area map across all 9 cities you serve</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Before/after lot striping case studies — using your real photos</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Domain cutover from old Joomla site — zero downtime</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Hosting + maintenance · first year fully included</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Direct text/phone line to Jasper through launch</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INVESTMENT (BETA OFFERING) ============ -->
+<section class="section" id="invest">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">The investment</div>
+      <h2 style="font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 18px;">One price. <em style="color:var(--cyan); font-style:italic;">Everything you just saw.</em></h2>
+      <p style="color: var(--text-muted); font-size: 17px; max-width: 720px;">We're running a limited <strong style="color:white;">SANO Solutions beta</strong> with a handful of Houston businesses. PD Towing is one of them. The beta price covers the entire build — website, admin, chatbot, hosting, the whole thing — at a flat rate that won't be offered again once we exit beta.</p>
+    </div>
+    <div class="invest reveal">
+      <div class="invest-row">
+        <div>
+          <span class="badge">SANO Beta · Limited</span>
+          <h3>The PD Towing Rebuild</h3>
+          <p class="tagline">Everything in this proposal, live in 14 days.</p>
+          <div class="price">$2,500</div>
+          <p class="setup">One-time · all-inclusive · no monthly fee during beta</p>
+          <div class="timeline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Live in 14 days from kickoff
+          </div>
+          <a href="#close" class="invest-cta">
+            Let's get started
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> The full website you just saw — built and deployed on your own domain (cutover included)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Mobile-first, tap-to-call, modern design</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Dee — the AI chatbot, embedded and ready</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Visual editor (publish changes yourself, no developer)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Free site audit form → leads delivered to your inbox</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Domain cutover from old site → zero downtime</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Hosting + maintenance · first year included</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Direct text/phone line to Jasper through launch</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE / NEXT STEP ============ -->
+<section class="section" id="close">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Next step</div>
+      <h2 style="font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 14px;">Reply <em style="color:var(--success); font-style:italic;">YES</em> — and we kick off.</h2>
+      <p style="color: var(--text-muted); font-size: 17px; max-width: 640px;">One word reply on email or text. We schedule a 30-minute kickoff this week, lock in the brand details, and your new site is live within 14 days. No pressure, no commitment until you sign.</p>
+    </div>
+    <div class="close-card reveal">
+      <h3>What happens in 14 days:</h3>
+      <ul style="margin-top: 18px; display: flex; flex-direction: column; gap: 12px;">
+        <li style="list-style: none; display: flex; gap: 16px; align-items: flex-start;">
+          <span style="flex-shrink:0; width:32px; height:32px; border-radius:50%; background:rgba(125,211,252,0.12); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:600; color:var(--cyan);">1</span>
+          <div><strong style="color:white;">Day 1 — Kickoff call.</strong> <span style="color:var(--text-muted);">Lock the brand details — colors, owner photo, content tweaks. 30 minutes max.</span></div>
+        </li>
+        <li style="list-style: none; display: flex; gap: 16px; align-items: flex-start;">
+          <span style="flex-shrink:0; width:32px; height:32px; border-radius:50%; background:rgba(125,211,252,0.12); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:600; color:var(--cyan);">2</span>
+          <div><strong style="color:white;">Days 2–7 — We build.</strong> <span style="color:var(--text-muted);">Mock becomes production. Dee gets trained on your real FAQs and storage lots. Lead form wired to your inbox. We test on phone + desktop.</span></div>
+        </li>
+        <li style="list-style: none; display: flex; gap: 16px; align-items: flex-start;">
+          <span style="flex-shrink:0; width:32px; height:32px; border-radius:50%; background:rgba(125,211,252,0.12); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:600; color:var(--cyan);">3</span>
+          <div><strong style="color:white;">Days 8–11 — You review.</strong> <span style="color:var(--text-muted);">Walkthrough together. You request edits. We make them inside 24 hours.</span></div>
+        </li>
+        <li style="list-style: none; display: flex; gap: 16px; align-items: flex-start;">
+          <span style="flex-shrink:0; width:32px; height:32px; border-radius:50%; background:rgba(125,211,252,0.12); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:600; color:var(--cyan);">4</span>
+          <div><strong style="color:white;">Days 12–13 — DNS cutover.</strong> <span style="color:var(--text-muted);">We move pdtowingofhouston.com to the new site. Old site stays as backup. Zero downtime.</span></div>
+        </li>
+        <li style="list-style: none; display: flex; gap: 16px; align-items: flex-start;">
+          <span style="flex-shrink:0; width:32px; height:32px; border-radius:50%; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.32); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:600; color:var(--success);">14</span>
+          <div><strong style="color:white;">Day 14 — Live.</strong> <span style="color:var(--text-muted);">Site is live. Dee is taking property-manager leads. You have the editor login. We're on monthly support.</span></div>
+        </li>
+      </ul>
+      <div class="signature">
+        <div class="signature-row">
+          <div class="sano-mark">S</div>
+          <div>
+            <strong>Jasper · SANO Solutions</strong>
+            <span>Houston, TX · <a href="mailto:jaspersmind4@icloud.com">jaspersmind4@icloud.com</a></span>
+          </div>
+        </div>
+        <div class="from-the-owner">
+          <strong>The team at PD Towing,</strong><br/><br/>
+          I built this mock because I think PD has a real shot to be Houston's premier private-property tow brand, not just one of many. The operation is already there — the fleet, the photo evidence, the TDLR compliance, the 24/7 dispatch, 15 years of family-owned reputation. The only thing in the way is a website built in 2012 that hides all of it.<br/><br/>
+          Reply "yes" to this email and let's get on a call this week.<br/><br/>
+          — Jasper
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height: 100px;"></div>
+
+<!-- ============ STICKY FOOTER CTA ============ -->
+<div class="sticky-footer" id="stickyFooter">
+  <div class="what">
+    Ready when you are.
+    <strong>14 days from yes → live site.</strong>
+  </div>
+  <div class="buttons">
+    <a href="tel:8324966891" class="call-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call PD
+    </a>
+    <a href="mailto:jaspersmind4@icloud.com?subject=YES%20-%20Let's%20build%20the%20new%20PD%20Towing%20site&body=Hey%20Jasper%2C%0A%0AYes%20-%20we're%20in.%20Let's%20set%20up%20the%20kickoff%20call.%0A%0A--%20The%20team%20at%20PD%20Towing" class="yes-btn">
+      Reply YES →
+    </a>
+  </div>
+</div>
+
+<script>
+// Reveal observer
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Sticky footer appears after scrolling past cover
+window.addEventListener('scroll', () => {
+  const sf = document.getElementById('stickyFooter');
+  if (window.scrollY > window.innerHeight * 0.6) sf.classList.add('show');
+  else sf.classList.remove('show');
+});
+</script>
+</body>
+</html>
